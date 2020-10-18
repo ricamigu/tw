@@ -1,0 +1,127 @@
+<html>
+ <head>
+   <title>TW</title>
+   <link rel="stylesheet" type="text/css" href="style.css">
+   <meta charset="utf-8">
+   <script src="script.js"></script>
+
+ </head>
+ <body>
+
+ 	<div id=pag_inicial>
+ 		<div id="logo"> 
+				<img src="imagens/othello_logo.png">
+		</div> <br><br><br>
+		<div id="op_offline">
+			<br>
+			<p><b> Utilizador </b></p>
+			<input type="text" name="user" id ="username">
+			<p><b> Password </b></p>
+			<input type="Password" name="userp" id = "password">
+			<br><br><br>
+			<input type="submit" value="login" id ="loginBtn" onclick="login()">
+		</div>
+ 	</div>
+
+ 	<div id='after-login'>
+	 	<div class=titulo>
+	 		<img src="imagens/othello_logo.png">
+	 	</div>
+	 	<br>
+	 	<div class="btn-group">
+			<button onclick="home()">Home</button>
+			<button onclick="regras()">Regras</button>
+			<button onclick="classificacao()">Classificações</button>
+			<button onclick="logout()">Logout</button>
+		</div>
+
+		<div id='configurações'> 
+			<div id="startgame">
+				<br><br>
+				<button class="button1" onclick="startvs()"><span> 1 Vs 1</span></button>
+				<button class="button1" onclick="startgame()"><span>1 Vs IA</span></button>
+			</div>
+
+			<div id='cor_peca'> 
+				<p></p>
+
+			</div>
+
+		</div>
+
+
+		<div id='regras'>
+			<br><br>
+			<h2>Regras do Othello</h2>
+			<p>O <b>Othello</b> é uma variante moderna do Reversi. Difere deste por fixar a posição inicial das 4 peças/discos iniciais nas casas centrais.</p>
+			
+			<ul>
+				<li><a href="#tabuleiro">Tabuleiro</a></li>
+				<li><a href="#pecas">Peças/Discos</a></li>
+				<li><a href="#inicio_do_jogo">Início do jogo</a></li>
+				<li><a href="#começar_jogar">Jogar as peças</a></li>
+				<li><a href="#terminar">Terminar o jogo</a></li>
+			</ul>
+			
+			<br>
+			<h3 a id="tabuleiro">Tabuleiro</h3>
+			<img src="imagens/othello-board.png">
+			<ul>
+				<li>Tabuleiro quadrado</li>
+				<li>Grelha com 8 linhas por 8 colunas</li>
+				<li><b>Não</b> xadrezado, contrariamente às damas ou ao xadrez</li>
+				<li>Geralmente de fundo verde</li>
+			</ul>
+
+			<h3 a id="pecas">Peças/Discos</h3>
+			<ul>
+				<li>As peças denominam-se discos</li>
+				<li>São circulares</li>
+				<li>Com 2 faces de diferentes tonalidades
+					<ul>
+						<li>lado claro <div class="piece light inline"></div></li>
+						<li>lado escuro <div class="piece dark inline"></div></li>
+					</ul>
+				</li>
+			</ul>
+			<h3 a id="inicio_do_jogo">Início do jogo</h3>
+			<img src="imagens/othello_board_inicio.png">
+			<ul>
+				<li>Na posição inicial há 4 peças</li>
+				<li>2 de cada uma das 2 tonalidades - claro e escuro</li>
+				<li>Colocadas nas casas centrais</li>
+				<li>Peças da mesma tonalidade ficam em diagonal</li>
+				<li>As peças escuras jogam primeiro</li>
+			</ul>
+
+			<h3 a id="começar_jogar">Jogar as peças</h3>
+			<ul>
+				<li>Durante o jogo os jogadores jogam alternadamente</li>
+				<li>Colocam uma peça da sua cor numa casa livre</li>
+				<li>Se na mesma linha, coluna ou diagonal da peça jogada tiver peças da cor contrária, viram para a cor do jogador</li>
+				<li>Só pode ser jogada uma peça se for virada alguma</li>
+				<li>A peça colocada pode virar várias peças do adversário que estão na mesma linha, coluna ou diagnoal da peça jogada desde que num dos extremos esteja a peça jogada e no outro esteja uma peça do mesmo tom</li>
+				<li>Podem ser viradas várias peças consecutivas do adversário na mesma linha, coluna ou diagonal, desde que delimitadas pela peça jogada e outra do mesmo tom.</li>
+			</ul>
+
+			<h3>Passar</h3>
+			<ul>
+				<li>Na sua vez, o jogador só pode jogar se virar peças</li>
+				<li>Caso contrário, não poderá jogar e terá que passar a jogada</li>
+				<li>Mas só pode passar se não tiver jogada possível</li>
+			</ul>
+
+			<h3 a id="terminar">Terminar</h3>
+			<ul>
+				<li>Jogo termina quando nenhum jogador pode jogar</li>
+				<li>Geralmente quando o tabuleiro está todo preenchido</li>
+				<li>Ganha o jogador com maior número de peças</li>
+			</ul>
+		</div>
+	</div>
+
+
+
+	<br>
+</body>
+</html>
