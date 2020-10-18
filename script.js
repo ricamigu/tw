@@ -1,5 +1,6 @@
 var paginainicial = document.getElementById('login_page');
 var cor;
+var difcl;
 
 function login() {
 
@@ -50,26 +51,54 @@ function logout(){
 }
 
 function startgame() {
-  document.getElementById('tabuleiro').style.display = 'block';
+  //document.getElementById('tabuleiro').style.display = 'block';
   document.getElementById('startgame').style.display = 'none';
   document.getElementById('cor_peca').style.display = 'block';
 
 
 }
-
+/*
 function startvs() {
   //document.getElementById('tabuleiro').style.display = 'block';
   document.getElementById('regras').style.display = 'none';
   //document.getElementById('dificuldade').style.display = 'block';
   document.getElementById('startgame').style.display = 'block'; //pq ainda nao é para fazer 
-}
+}*/
 
 function black(){
-	cor = black;
-	document.getElementById('startgame').style.display = 'none';
+	var cor = 2;
+	//document.getElementById('startgame').style.display = 'none';
+	document.getElementById('dificuldade').style.display = 'block';
+	document.getElementById('configurações').style.display = 'none';
+	
 }
 
 function white(){
-	cor = white;
+	var cor = 1;
+	document.getElementById('configurações').style.display = 'none';
+	document.getElementById('dificuldade').style.display = 'block';
+}
+
+function dif_easy(){
+	var difcl = 1;
+	document.getElementById('area_de_jogo').style.display = 'block';
 	document.getElementById('startgame').style.display = 'none';
+	document.getElementById('cor_peca').style.display = 'none';
+	document.getElementById('dificuldade').style.display = 'none';
+}
+
+function dif_medium(){
+	var difcl = 2;
+	document.getElementById('area_de_jogo').style.display = 'block';
+	document.getElementById('startgame').style.display = 'none';
+	document.getElementById('cor_peca').style.display = 'none';
+	document.getElementById('dificuldade').style.display = 'none';
+}
+
+function dif_hard(){
+	var difcl = 3;
+	document.getElementById('area_de_jogo').style.display = 'block';
+	document.getElementById('startgame').style.display = 'none';
+	document.getElementById('cor_peca').style.display = 'none';
+	document.getElementById('dificuldade').style.display = 'none';
 }
