@@ -99,6 +99,7 @@ body {
 	padding: 20px; 
   	width: 600px;
   	height: 150px;  
+  	padding-bottom: 50px;
 }
 
 #startgame button {
@@ -145,4 +146,23 @@ body {
 .button1:hover span:after {
   opacity: 1;
   right: 0;
+}
+
+#cor_peca {
+	margin-left: 33%;
+	display:none;
+	margin-top: 15%;
+	vertical-align: center;
+	text-align: center;
+	border: 5px solid black;
+	border-radius: 25px;
+	background-color: #DED197;
+	padding: 20px; 
+  	width: 600px;
+  	height: 150px;  
+  	padding-bottom: 50px;
+}
+
+#cor_peca button {
+	border: 2px solid black;
 }

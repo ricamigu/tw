@@ -35,21 +35,6 @@
 			<button onclick="logout()">Logout</button>
 		</div>
 
-		<div id='configurações'> 
-			<div id="startgame">
-				<br><br>
-				<button class="button1" onclick="startvs()"><span> 1 Vs 1</span></button>
-				<button class="button1" onclick="startgame()"><span>1 Vs IA</span></button>
-			</div>
-
-			<div id='cor_peca'> 
-				<p></p>
-
-			</div>
-
-		</div>
-
-
 		<div id='regras'>
 			<br><br>
 			<h2>Regras do Othello</h2>
@@ -118,6 +103,23 @@
 				<li>Ganha o jogador com maior número de peças</li>
 			</ul>
 		</div>
+
+		<div id='configurações'> 
+			<div id="startgame">
+				<br><br>
+				<button class="button1" onclick="startvs()"><span> 1 Vs 1</span></button>
+				<button class="button1" onclick="startgame()"><span>1 Vs IA</span></button>
+			</div>
+
+			<div id="cor_peca">
+				<h1>Cor da peça</h1>
+				<button class="button1" onclick="black()"><span><div class="piece light inline"></div></span></button>
+				<button class="button1" onclick="white()"><span><div class="piece dark inline"></div></span></button>
+				<br><br>
+			</div>
+
+		</div>
+
 	</div>
 
 
