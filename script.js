@@ -27,7 +27,7 @@ function home(){
 	//document.getElementById('home').style.display = 'block';
 	document.getElementById('regras').style.display = 'none';
 	//document.getElementById('tabuleiro').style.display = 'block';
-
+	document.getElementById('area_de_jogo').style.display = 'block';
 }
 
 function regras(){
@@ -36,6 +36,7 @@ function regras(){
 	document.getElementById('regras').style.display = 'block';
 	document.getElementById('startgame').style.display = 'none';
 	document.getElementById('cor_peca').style.display = 'none';
+	document.getElementById('area_de_jogo').style.display = 'none';
 }
 
 function classficacoes(){
@@ -48,6 +49,7 @@ function logout(){
 	document.getElementById('after-login').style.display = 'none';
 	document.getElementByIdº('regras').style.display = 'none';
 	document.getElementById('startgame').style.display = 'none';
+	document.getElementById('area_de_jogo').style.display = 'none';
 }
 
 function startgame() {
