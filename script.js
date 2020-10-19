@@ -81,7 +81,7 @@ function startvs() {
 }*/
 
 function black(){
-	var player = 2;
+	player = 2;
 	//document.getElementById('startgame').style.display = 'none';
 	document.getElementById('dificuldade').style.display = 'block';
 	document.getElementById('configurações').style.display = 'none';
@@ -89,13 +89,13 @@ function black(){
 }
 
 function white(){
-	var player = 1;
+	player = 1;
 	document.getElementById('configurações').style.display = 'none';
 	document.getElementById('dificuldade').style.display = 'block';
 }
 
 function dif_easy(){
-	var difcl = 1;
+	difcl = 1;
 	document.getElementById('area_de_jogo').style.display = 'block';
 	document.getElementById('startgame').style.display = 'none';
 	document.getElementById('cor_peca').style.display = 'none';
@@ -104,7 +104,7 @@ function dif_easy(){
 }
 
 function dif_medium(){
-	var difcl = 2;
+	difcl = 2;
 	document.getElementById('area_de_jogo').style.display = 'block';
 	document.getElementById('startgame').style.display = 'none';
 	document.getElementById('cor_peca').style.display = 'none';
@@ -113,7 +113,7 @@ function dif_medium(){
 }
 
 function dif_hard(){
-	var difcl = 3;
+	difcl = 3;
 	document.getElementById('area_de_jogo').style.display = 'block';
 	document.getElementById('startgame').style.display = 'none';
 	document.getElementById('cor_peca').style.display = 'none';
