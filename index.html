@@ -2,6 +2,7 @@
  <head>
    <title>TW</title>
    <link rel="stylesheet" type="text/css" href="style.css">
+   <link rel="icon" href="imagens/othello_logo.png">
    <meta charset="utf-8">
    <script src="script.js"></script>
 
@@ -131,93 +132,92 @@
 
 	</div>
 
-
 	<div id=area_de_jogo>
 			<br><br>
-			<div id='turno'> Black turn </div>
+			<div id='turno'>White turn</div>
 			<div id='tabuleiro'>
 				<div class='row'>
-					<div class='cell'></div>
-					<div class='cell'></div>
-					<div class='cell'></div>
-					<div class='cell'></div>
-					<div class='cell'></div>
-					<div class='cell'></div>
-					<div class='cell'></div>
-					<div class='cell'></div>	
+					<div class='cell' id="cell00" onclick="click_cell(0,0);"><div class="piece"></div></div>
+					<div class='cell' id="cell01"><div class="piece"></div></div>
+					<div class='cell' id="cell02"><div class="piece"></div></div>
+					<div class='cell' id="cell03"><div class="piece"></div></div>
+					<div class='cell' id="cell04"><div class="piece"></div></div>
+					<div class='cell' id="cell05"><div class="piece"></div></div>
+					<div class='cell' id="cell06"><div class="piece"></div></div>
+					<div class='cell' id="cell07"><div class="piece"></div></div>
 				</div>
 				<div class='row'>
-					<div class='cell'></div>
-					<div class='cell'></div>
-					<div class='cell'></div>
-					<div class='cell'></div>
-					<div class='cell'></div>
-					<div class='cell'></div>
-					<div class='cell'></div>
-					<div class='cell'></div>	
+					<div class='cell' id="cell10"><div class="piece"></div></div>
+					<div class='cell' id="cell11"><div class="piece"></div></div>
+					<div class='cell' id="cell12"><div class="piece"></div></div>
+					<div class='cell' id="cell13"><div class="piece"></div></div>
+					<div class='cell' id="cell14"><div class="piece"></div></div>
+					<div class='cell' id="cell15"><div class="piece"></div></div>
+					<div class='cell' id="cell16"><div class="piece"></div></div>
+					<div class='cell' id="cell17"><div class="piece"></div></div>		
 				</div>
 				<div class='row'>
-					<div class='cell'></div>
-					<div class='cell'></div>
-					<div class='cell'></div>
-					<div class='cell'></div>
-					<div class='cell'></div>
-					<div class='cell'></div>
-					<div class='cell'></div>
-					<div class='cell'></div>	
+					<div class='cell' id="cell20"><div class="piece"></div></div>
+					<div class='cell' id="cell21"><div class="piece"></div></div>
+					<div class='cell' id="cell22"><div class="piece"></div></div>
+					<div class='cell' id="cell23"><div class="piece"></div></div>
+					<div class='cell' id="cell24"><div class="piece"></div></div>
+					<div class='cell' id="cell25"><div class="piece"></div></div>
+					<div class='cell' id="cell26"><div class="piece"></div></div>
+					<div class='cell' id="cell27"><div class="piece"></div></div>	
 				</div>
 				<div class='row'>
-					<div class='cell'></div>
-					<div class='cell'></div>
-					<div class='cell'></div>
-					<div class='cell'><div class="piece light inline"></div></div>
-					<div class='cell'><div class="piece dark inline"></div></div>
-					<div class='cell'></div>
-					<div class='cell'></div>
-					<div class='cell'></div>	
+					<div class='cell' id="cell30"><div class="piece"></div></div>
+					<div class='cell' id="cell31"><div class="piece"></div></div>
+					<div class='cell' id="cell32"><div class="piece"></div></div>
+					<div class='cell' id="cell33"><div class="piece"></div></div>
+					<div class='cell' id="cell34"><div class="piece"></div></div>
+					<div class='cell' id="cell35"><div class="piece"></div></div>
+					<div class='cell' id="cell36"><div class="piece"></div></div>
+					<div class='cell' id="cell37"><div class="piece"></div></div>	
 				</div>
 				<div class='row'>
-					<div class='cell'></div>
-					<div class='cell'></div>
-					<div class='cell'></div>
-					<div class='cell'><div class="piece dark inline"></div></div>
-					<div class='cell'><div class="piece light inline"></div></div>
-					<div class='cell'></div>
-					<div class='cell'></div>
-					<div class='cell'></div>	
+					<div class='cell' id="cell40"><div class="piece"></div></div>
+					<div class='cell' id="cell41"><div class="piece"></div></div>
+					<div class='cell' id="cell42"><div class="piece"></div></div>
+					<div class='cell' id="cell43"><div class="piece"></div></div>
+					<div class='cell' id="cell44"><div class="piece"></div></div>
+					<div class='cell' id="cell45"><div class="piece"></div></div>
+					<div class='cell' id="cell46"><div class="piece"></div></div>
+					<div class='cell' id="cell47"><div class="piece"></div></div>		
 				</div>
 				<div class='row'>
-					<div class='cell'></div>
-					<div class='cell'></div>
-					<div class='cell'></div>
-					<div class='cell'></div>
-					<div class='cell'></div>
-					<div class='cell'></div>
-					<div class='cell'></div>
-					<div class='cell'></div>	
+					<div class='cell' id="cell50"><div class="piece"></div></div>
+					<div class='cell' id="cell51"><div class="piece"></div></div>
+					<div class='cell' id="cell52"><div class="piece"></div></div>
+					<div class='cell' id="cell53"><div class="piece"></div></div>
+					<div class='cell' id="cell54"><div class="piece"></div></div>
+					<div class='cell' id="cell55"><div class="piece"></div></div>
+					<div class='cell' id="cell56"><div class="piece"></div></div>
+					<div class='cell' id="cell57"><div class="piece"></div></div>
 				</div>
 				<div class='row'>
-					<div class='cell'></div>
-					<div class='cell'></div>
-					<div class='cell'></div>
-					<div class='cell'></div>
-					<div class='cell'></div>
-					<div class='cell'></div>
-					<div class='cell'></div>
-					<div class='cell'></div>	
+					<div class='cell' id="cell60"><div class="piece"></div></div>
+					<div class='cell' id="cell61"><div class="piece"></div></div>
+					<div class='cell' id="cell62"><div class="piece"></div></div>
+					<div class='cell' id="cell63"><div class="piece"></div></div>
+					<div class='cell' id="cell64"><div class="piece"></div></div>
+					<div class='cell' id="cell65"><div class="piece"></div></div>
+					<div class='cell' id="cell66"><div class="piece"></div></div>
+					<div class='cell' id="cell67"><div class="piece"></div></div>
 				</div>
 				<div class='row'>
-					<div class='cell'></div>
-					<div class='cell'></div>
-					<div class='cell'></div>
-					<div class='cell'></div>
-					<div class='cell'></div>
-					<div class='cell'></div>
-					<div class='cell'></div>
-					<div class='cell'></div>	
-				</div>
+					<div class='cell' id="cell70"><div class="piece"></div></div>
+					<div class='cell' id="cell71"><div class="piece"></div></div>					
+					<div class='cell' id="cell72"><div class="piece"></div></div>
+					<div class='cell' id="cell73"><div class="piece"></div></div>
+					<div class='cell' id="cell74"><div class="piece"></div></div>
+					<div class='cell' id="cell75"><div class="piece"></div></div>
+					<div class='cell' id="cell76"><div class="piece"></div></div>
+					<div class='cell' id="cell77"><div class="piece"></div></div>
+				</div>		
 			</div>
-	</div>
+		</div>
 
 	<br>
 </body>

@@ -1,6 +1,17 @@
 var paginainicial = document.getElementById('login_page');
-var cor;
 var difcl;
+var player=1;
+
+var tab = [
+  [0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 1, 2, 0, 0, 0],
+  [0, 0, 0, 2, 1, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0]
+];
 
 function login() {
 
@@ -37,6 +48,7 @@ function regras(){
 	document.getElementById('startgame').style.display = 'none';
 	document.getElementById('cor_peca').style.display = 'none';
 	document.getElementById('area_de_jogo').style.display = 'none';
+	document.getElementById('tabuleiro').style.display = 'none';
 }
 
 function classficacoes(){
@@ -47,9 +59,10 @@ function classficacoes(){
 function logout(){
 	document.getElementById('pag_inicial').style.display = 'block';
 	document.getElementById('after-login').style.display = 'none';
-	document.getElementByIdº('regras').style.display = 'none';
+	document.getElementById('regras').style.display = 'none';
 	document.getElementById('startgame').style.display = 'none';
 	document.getElementById('area_de_jogo').style.display = 'none';
+	document.getElementById('tabuleiro').style.display = 'none';
 }
 
 function startgame() {
@@ -68,7 +81,7 @@ function startvs() {
 }*/
 
 function black(){
-	var cor = 2;
+	var player = 2;
 	//document.getElementById('startgame').style.display = 'none';
 	document.getElementById('dificuldade').style.display = 'block';
 	document.getElementById('configurações').style.display = 'none';
@@ -76,7 +89,7 @@ function black(){
 }
 
 function white(){
-	var cor = 1;
+	var player = 1;
 	document.getElementById('configurações').style.display = 'none';
 	document.getElementById('dificuldade').style.display = 'block';
 }
@@ -87,6 +100,7 @@ function dif_easy(){
 	document.getElementById('startgame').style.display = 'none';
 	document.getElementById('cor_peca').style.display = 'none';
 	document.getElementById('dificuldade').style.display = 'none';
+	preencher();
 }
 
 function dif_medium(){
@@ -95,6 +109,7 @@ function dif_medium(){
 	document.getElementById('startgame').style.display = 'none';
 	document.getElementById('cor_peca').style.display = 'none';
 	document.getElementById('dificuldade').style.display = 'none';
+	preencher();
 }
 
 function dif_hard(){
@@ -103,4 +118,38 @@ function dif_hard(){
 	document.getElementById('startgame').style.display = 'none';
 	document.getElementById('cor_peca').style.display = 'none';
 	document.getElementById('dificuldade').style.display = 'none';
+	preencher();
+}
+
+function click_cell(linha,coluna){
+
+	if ((player==1) && (tab[linha][coluna] == 0)){
+		tab[linha][coluna] = 1;
+		player=2;
+		document.getElementById('turno').innerHTML="Black Turn";
+	} 
+
+	else if ((player==2) && (tab[linha][coluna] == 0)){
+		tab[linha][coluna] = 2;
+		player=1;
+		document.getElementById('turno').innerHTML="White Turn";
+	}
+
+	preencher();
+
+}
+
+function preencher() {
+
+	for(var linha=0;linha<8;linha++){
+		for(var coluna=0; coluna<8; coluna++){
+			if(tab[linha][coluna]==1){
+				document.getElementById("cell"+linha+coluna).childNodes[0].style.backgroundColor = "#FFFFFF";
+			}
+			else if(tab[linha][coluna]==2){
+				document.getElementById("cell"+linha+coluna).childNodes[0].style.backgroundColor = "#000000";
+			}
+		}
+	}
+
 }
