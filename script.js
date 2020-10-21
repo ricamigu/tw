@@ -18,6 +18,7 @@ function login() {
 	var user = document.getElementById("username").value;
 	var pass = document.getElementById("password").value;
 
+	
 	document.getElementById('pag_inicial').style.display = 'none';  
 	document.getElementById('after-login').style.display = 'block';
 	document.getElementById('startgame').style.display = 'block';
@@ -123,16 +124,20 @@ function dif_hard(){
 
 function click_cell(linha,coluna){
 
-	if ((player==1) && (tab[linha][coluna] == 0)){
-		tab[linha][coluna] = 1;
-		player=2;
-		document.getElementById('turno').innerHTML="Black Turn";
-	} 
+	// funcao para verificar se pode jogar
+	if(pode_jogar(linha, coluna)){
 
-	else if ((player==2) && (tab[linha][coluna] == 0)){
-		tab[linha][coluna] = 2;
-		player=1;
-		document.getElementById('turno').innerHTML="White Turn";
+		if ((player==1) && (tab[linha][coluna] == 0)){
+			tab[linha][coluna] = 1;
+			player=2;
+			document.getElementById('turno').innerHTML="Black Turn";
+		} 
+
+		else if ((player==2) && (tab[linha][coluna] == 0)){
+			tab[linha][coluna] = 2;
+			player=1;
+			document.getElementById('turno').innerHTML="White Turn";
+		}
 	}
 
 	preencher();
@@ -152,4 +157,189 @@ function preencher() {
 		}
 	}
 
+}
+
+
+function pode_jogar(linha, coluna){
+
+
+	return (verificar_lados(linha,coluna) && altera_pecas(linha,coluna) );
+}
+
+
+// verificar se à volta da posicao existe uma peça oposta à que se quer jogar
+function verificar_lados(linha,coluna){
+
+	// condicao para dar fix a quando a posicao sai fora do tabuleiro
+	var linhama1 = linha+1; if (linhama1 > 7) linhama1 = 7;
+	
+	if((player==1)){
+		if( (tab[linha][coluna+1] == 2) || (tab[linha][coluna-1] == 2) || (tab[linhama1][coluna] == 2)  || (tab[linhama1][coluna+1] == 2) || (tab[linhama1][coluna-1] == 2) || (tab[linha-1][coluna] == 2) || (tab[linha-1][coluna+1] == 2) || (tab[linha-1][coluna-1] == 2))
+			return true;
+	}
+
+	if((player==2)){
+		if( (tab[linha][coluna+1] == 1) || (tab[linha][coluna-1] == 1) || (tab[linhama1][coluna] == 1)  || (tab[linhama1][coluna+1] == 1) || (tab[linhama1][coluna-1] == 1)  ||  (tab[linha-1][coluna+1] == 1) || (tab[linha-1][coluna-1] == 1)  || (tab[linha-1][coluna] == 1) )
+			return true;
+	}
+
+	return false;
+
+}
+
+//verificar se existe uma peça da mesma cor para verificar se a jogada altera o tabuleiro
+function altera_pecas(linha,coluna){
+
+	return (alterar_direita(linha,coluna) || alterar_esquerda(linha,coluna) || alterar_cima(linha,coluna) || alterar_baixo(linha,coluna) ) ;
+}
+
+
+function alterar_direita(linha,coluna){
+
+
+	if(player==1){
+
+		var encontrou=false; // verificar se ha peça oposta no meio
+		if(tab[linha][coluna+1] == 2) encontrou = true;
+		if(tab[linha][coluna+1] == 0) return false;
+		//lado direito
+		for(var i=coluna+2; i<8; i++){
+			if( tab[linha][i] == 2) encontrou = true;
+			if( (tab[linha][i] == 1) && encontrou ) return true;
+			if( tab[linha][i] == 0) return false;
+		}
+
+
+	}
+
+	else if(player==2){
+		
+		var encontrou=false;
+
+		if(tab[linha][coluna+1] == 1) encontrou = true;
+		if(tab[linha][coluna+1] == 0) return false;
+
+		for(var i=coluna+2; i<8; i++){
+			if( tab[linha][i] == 1) encontrou = true;
+			if( (tab[linha][i] == 2)  && encontrou ) return true;
+			if( tab[linha][i] == 0) return false;
+		}
+
+	}
+
+	return false;
+
+}
+
+function alterar_esquerda(linha,coluna){
+
+	
+
+	if(player==1){
+
+		var encontrou=false;
+		if(tab[linha][coluna-1] == 2) encontrou = true;
+		if(tab[linha][coluna-1] == 0) return false;
+
+		for(var i=coluna-2; i>=0; i--){
+			if( tab[linha][i] == 2) encontrou = true;
+			if( tab[linha][i] == 1 && encontrou) return true;
+			if( tab[linha][i] == 0) return false;
+		}
+
+
+	}
+
+	else if(player==2){
+		var encontrou=false;
+
+		if(tab[linha][coluna-1] == 1) encontrou = true;
+		if(tab[linha][coluna-1] == 0) return false;
+
+		for(var i=coluna-2; i>=0; i--){
+			if( tab[linha][i] == 1) encontrou = true;
+			if( tab[linha][i] == 2  && encontrou) return true;
+			if( tab[linha][i] == 0) return false;
+		}
+
+	}
+
+	return false;
+
+}
+
+function alterar_cima(linha,coluna){
+
+	
+
+	if(player==1){
+		var encontrou=false;
+
+		if(tab[linha+1][coluna] == 2) encontrou = true;
+		if(tab[linha+1][coluna] == 0) return false;
+		//lado direito
+		for(var i=linha+2; i<8; i++){
+			if( tab[i][coluna] == 2) encontrou = true;
+			if( tab[i][coluna] == 1 && encontrou ) return true;
+			if( tab[i][coluna] == 0) return false;
+		}
+
+
+	}
+
+	else if(player==2){
+		
+		var encontrou=false;
+
+		if(tab[linha+1][coluna] == 1) encontrou = true;
+		if(tab[linha+1][coluna] == 0) return false;
+
+		for(var i=linha+2; i<8; i++){
+			if( tab[i][coluna] == 1) encontrou = true;
+			if( tab[i][coluna] == 2  && encontrou) return true;
+			if( tab[i][coluna] == 0) return false;
+		}
+
+	}
+
+	return false;
+
+}
+
+function alterar_baixo(linha,coluna){
+
+	
+
+	if(player==1){
+
+		var encontrou=false;
+
+		if(tab[linha-1][coluna] == 2) encontrou = true;
+		if(tab[linha-1][coluna] == 0) return false;
+
+		for(var i=linha-2; i>=0; i--){
+			if( tab[i][coluna] == 2) encontrou = true;
+			if( tab[i][coluna] == 1 && encontrou) return true;
+			if( tab[i][coluna] == 0) return false;
+		}
+
+
+	}
+
+	else if(player==2){
+
+		var encontrou=false;
+
+		if(tab[linha-1][coluna] == 1) encontrou = true;
+		if(tab[linha-1][coluna] == 0) return false;
+
+		for(var i=linha-2; i>=0; i--){
+			if( tab[i][coluna] == 1) encontrou = true;
+			if( tab[i][coluna] == 2  && encontrou) return true;
+			if( tab[i][coluna] == 0) return false;
+		}
+
+	}
+
+	return false;
 }
