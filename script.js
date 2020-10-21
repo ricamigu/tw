@@ -140,6 +140,8 @@ function click_cell(linha,coluna){
 		}
 	}
 
+	else window.alert("Não pode jogar nessa posição!");
+
 	preencher();
 
 }
