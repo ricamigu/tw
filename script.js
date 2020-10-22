@@ -1,4 +1,3 @@
-var paginainicial = document.getElementById('login_page');
 var difcl;
 var player=1;
 
@@ -222,10 +221,6 @@ function pontuacao(){
 	document.getElementById("score1").innerHTML = point1;
 	document.getElementById("score2").innerHTML = point2;
 
-	/*
-	document.getElementById('pontuacao').childNodes[0].innerHTML = point1;
-	document.getElementById('pontuacao').childNodes[1].innerHTML = point2;
-	*/
 }
 
 
@@ -251,7 +246,7 @@ function verificar_lados(linha,coluna){
 	}
 
 	if((player==2)){
-		if( (tab[linha][colma1] == 1) || (tab[linha][colme1] == 1) || (tab[linhama1][coluna] == 1)  || (tab[linhama1][colma1] == 1) || (tab[linhama1][colme1] == 1)  ||  (tab[linhame1][colma1] == 1) || (tab[linhame1][colma1] == 1)  || (tab[linhame1][coluna] == 1) )
+		if( (tab[linha][colma1] == 1) || (tab[linha][colme1] == 1) || (tab[linhama1][coluna] == 1)  || (tab[linhama1][colma1] == 1) || (tab[linhama1][colme1] == 1)  ||  (tab[linhame1][colma1] == 1) || (tab[linhame1][colme1] == 1)  || (tab[linhame1][coluna] == 1) )
 			return true;
 	}
 
