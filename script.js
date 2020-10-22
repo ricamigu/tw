@@ -1,5 +1,5 @@
 var difcl;
-var player=1;
+var player=2;
 
 var tab = [
   [0, 0, 0, 0, 0, 0, 0, 0],
@@ -179,8 +179,6 @@ function click_cell(linha,coluna){
 			player=1;
 			document.getElementById('turno').innerHTML="White Turn";
 		}
-
-		trocar_pecas(linha,coluna);
 	}
 
 	else window.alert("Não pode jogar nessa posição");
@@ -273,146 +271,69 @@ function altera_pecas(linha,coluna){
 
 function alterar_direita(linha,coluna){
 
-
-	if(player==1){
-
 		if(coluna+1 > 8) return false;
-		else if( tab[linha][coluna+1] == 1 || tab[linha][coluna+1] == 0) return false;
+		else if( tab[linha][coluna+1] == player || tab[linha][coluna+1] == 0) return false;
 		var k=1;
 		for(var i=coluna+2; i<8; i++){
 			k++;
-			if( (tab[linha][i] == 1))  { trocar_pecas(linha, coluna, 1, k); return true; }
+			if( (tab[linha][i] == player))  { trocar_pecas(linha, coluna, 1, k); return true; }
 			if( tab[linha][i] == 0) return false;
 		}
-	}
-
-	else if(player==2){
-		
-		var k=1;
-		if(coluna+1 > 8) return false;
-		else if( tab[linha][coluna+1] == 2 || tab[linha][coluna+1] == 0) return false;
-		for(var i=coluna+2; i<8; i++){
-			k++;
-			if((tab[linha][i] == 2)) { trocar_pecas(linha, coluna, 1, k); return true; }
-			if( tab[linha][i] == 0) return false;
-		}
-	}
 	return false;
 }
 
 
 function alterar_esquerda(linha,coluna){
 
-	if(player==1){
-		if(coluna-1<0) return false;
-		else if( tab[linha][coluna-1] == 1 || tab[linha][coluna-1] == 0) return false;
+	if(coluna-1<0) return false;
+		else if( tab[linha][coluna-1] == player || tab[linha][coluna-1] == 0) return false;
 		var k=1;
 		for(var i=coluna-2; i>=0; i--){
 			k++;
-			if( (tab[linha][i] == 1))  { trocar_pecas(linha, coluna, 2, k); return true; }
+			if( (tab[linha][i] == player))  { trocar_pecas(linha, coluna, 2, k); return true; }
 			if( tab[linha][i] == 0) return false;
 		}
-	}
-
-	else if(player==2){
-		
-		var k=1;
-		if(coluna-1<0) return false;
-		else if( tab[linha][coluna-1] == 2 || tab[linha][coluna-1] == 0) return false;
-		for(var i=coluna-2; i>=0; i--){
-			k++;
-			if( tab[linha][i] == 2 ) { trocar_pecas(linha, coluna, 2, k); return true; }
-			if( tab[linha][i] == 0 ) return false;
-		}
-	}
 	return false;
 }
 
-
+// direcao em baixo
 function alterar_cima(linha,coluna){
 
-	if(player==1){
-
 		if(linha+1>7) return false;
-		else if(tab[linha+1][coluna] == 1 || tab[linha+1][coluna] == 0) return false;
+		else if(tab[linha+1][coluna] == player || tab[linha+1][coluna] == 0) return false;
 		var k=1;
 		for(var i=linha+2; i<8; i++){
 			k++;
-			if( tab[i][coluna] == 1 ) { trocar_pecas(linha,coluna,3,k); return true; }
+			if( tab[i][coluna] == player ) { trocar_pecas(linha,coluna,3,k); return true; }
 			if( tab[i][coluna] == 0) return false;
 		}
-	}
-
-	else if(player==2){
-		
-		if(linha+1>7) return false;
-		else if(tab[linha+1][coluna] == 2 || tab[linha+1][coluna] == 0) return false;
-		var k=1;
-		for(var i=linha+2; i<8; i++){
-			k++;
-			if( tab[i][coluna] == 2) { trocar_pecas(linha,coluna,3,k); return true; }
-			if( tab[i][coluna] == 0) return false;
-		}
-	}
 	return false;
 }
 
 function alterar_baixo(linha,coluna){
 
-
-	if(player==1){
-
 		if(linha-1<0) return false;
-		else if(tab[linha-1][coluna] == 1 || tab[linha-1][coluna] == 0) return false;
+		else if(tab[linha-1][coluna] == player || tab[linha-1][coluna] == 0) return false;
 		var k=1;
 		for(var i=linha-2; i>=0; i--){
 			k++;
-			if( tab[i][coluna] == 1 ) { trocar_pecas(linha,coluna,4,k); return true; }
+			if( tab[i][coluna] == player ) { trocar_pecas(linha,coluna,4,k); return true; }
 			if( tab[i][coluna] == 0) return false;
 		}
-	}
-
-	else if(player==2){
-		
-		if(linha-1<0) return false;
-		else if(tab[linha-1][coluna] == 2 || tab[linha-1][coluna] == 0) return false;
-		var k=1;
-		for(var i=linha-2; i>=0; i--){
-			k++;
-			if( tab[i][coluna] == 2) { trocar_pecas(linha,coluna,4,k); return true; }
-			if( tab[i][coluna] == 0) return false;
-		}
-	}
 	return false;
 }
 
 // linha-1 , col+1
 function alterar_dsd(linha,coluna){
 
-	if(player==1){
-
 		var k=1;
 		if(linha-k < 0 || coluna+k>7) return false;
-		else if(tab[linha-k][coluna+k] == 1 || tab[linha-k][coluna+k] == 0) return false;
+		else if(tab[linha-k][coluna+k] == player || tab[linha-k][coluna+k] == 0) return false;
 		for(var i=linha-2; i>=0; i--){
 			k++;
 			if( coluna+k > 7) return false;
-			if( tab[i][coluna+k] == 1) { trocar_pecas(linha,coluna,5,k); return true;}
+			if( tab[i][coluna+k] == player) { trocar_pecas(linha,coluna,5,k); return true;}
 			if( tab[i][coluna+k] == 0) return false;
-		}
-	}
-
-	if(player==2){
-
-		var k=1;
-		if(linha-k < 0 || coluna+k>7) return false; 
-		else if(tab[linha-k][coluna+k] == 2 || tab[linha-k][coluna+k] == 0) return false;
-		for(var i=linha-2; i>=0; i--){
-			k++;
-			if( coluna+k > 7) return false;
-			if( tab[i][coluna+k] == 2) {trocar_pecas(linha,coluna,5,k); return true;}
-			if( tab[i][coluna+k] == 0) return false;
-		}
 	}
 	return false;
 }
@@ -420,33 +341,16 @@ function alterar_dsd(linha,coluna){
 // linha-1 , col-1
 function alterar_dse(linha,coluna){
 
-	
-	if(player==1){
 		var k=1;
 		if(linha-k < 0 || coluna-k<0) return false;
-		else if(tab[linha-k][coluna-k] == 1 || tab[linha-k][coluna-k] == 0) return false;
+		else if(tab[linha-k][coluna-k] == player || tab[linha-k][coluna-k] == 0) return false;
 
 		for(var i=linha-2; i>=0; i--){
 			k++;
 			if( coluna-k < 0) return false;
-			if( tab[i][coluna-k] == 1) { trocar_pecas(linha,coluna,6,k); return true;}
+			if( tab[i][coluna-k] == player) { trocar_pecas(linha,coluna,6,k); return true;}
 			if( tab[i][coluna-k] == 0) return false;
 		}
-	}
-
-	if(player==2){
-
-		var k=1;
-		if(linha-k < 0 || coluna-k<0) return false; 
-		else if(tab[linha-k][coluna-k] == 2 || tab[linha-k][coluna-k] == 0) return false;
-
-		for(var i=linha-2; i>=0; i--){
-			k++;
-			if( coluna-k <0) return false;
-			if( tab[i][coluna-k] == 2) {trocar_pecas(linha,coluna,6,k); return true;}
-			if( tab[i][coluna-k] == 0) return false;
-		}
-	}
 	return false;
 }
 
@@ -454,32 +358,16 @@ function alterar_dse(linha,coluna){
 // linha+1 , col-1
 function alterar_die(linha,coluna){
 
-	
-	if(player==1){
 		var k=1;
 		if(linha+k>7 || coluna-k<0) return false;
-		else if(tab[linha+k][coluna-k] == 1 || tab[linha+k][coluna-k] == 0) return false;
+		else if(tab[linha+k][coluna-k] == player || tab[linha+k][coluna-k] == 0) return false;
 
 		for(var i=linha+2; i<8; i++){
 			k++;
 			if( coluna-k < 0) return false;
-			if( tab[i][coluna-k] == 1) { trocar_pecas(linha,coluna,7,k); return true;}
+			if( tab[i][coluna-k] == player) { trocar_pecas(linha,coluna,7,k); return true;}
 			if( tab[i][coluna-k] == 0) return false;
 		}
-	}
-
-	if(player==2){
-
-		var k=1;
-		if(linha+k>7 || coluna-k<0) return false; 
-		else if(tab[linha+k][coluna-k] == 2 || tab[linha+k][coluna-k] == 0) return false;
-		for(var i=linha+2; i<8; i++){
-			k++;
-			if( coluna-k <0) return false;
-			if( tab[i][coluna-k] == 2) {trocar_pecas(linha,coluna,7,k); return true;}
-			if( tab[i][coluna-k] == 0) return false;
-		}
-	}
 	return false;
 }
 
@@ -487,31 +375,15 @@ function alterar_die(linha,coluna){
 // linha+1 , col+1
 function alterar_did(linha,coluna){
 
-	
-	if(player==1){
 		var k=1;
 		if(linha+k>7 || coluna+k>7) return false;
-		else if(tab[linha+k][coluna+k] == 1 || tab[linha+k][coluna+k] == 0) return false;
+		else if(tab[linha+k][coluna+k] == player || tab[linha+k][coluna+k] == 0) return false;
 		for(var i=linha+2; i<8; i++){
 			k++;
 			if( coluna+k>7) return false;
-			if( tab[i][coluna+k] == 1) { trocar_pecas(linha,coluna,8,k); return true;}
+			if( tab[i][coluna+k] == player) { trocar_pecas(linha,coluna,8,k); return true;}
 			if( tab[i][coluna+k] == 0) return false;
 		}
-	}
-
-	if(player==2){
-
-		var k=1;
-		if(linha+k>7 || coluna+k>7) return false; 
-		else if(tab[linha+k][coluna+k] == 2 || tab[linha+k][coluna+k] == 0) return false;
-		for(var i=linha+2; i<8; i++){
-			k++;
-			if( coluna+k>7) return false;
-			if( tab[i][coluna+k] == 2) {trocar_pecas(linha,coluna,8,k); return true;}
-			if( tab[i][coluna+k] == 0) return false;
-		}
-	}
 	return false;
 }
 
@@ -540,121 +412,53 @@ function trocar_pecas(linha, coluna, tp, k){
 }
 
 function trocar_direita(linha, coluna, k){
-
-	if(player==1){
-		for(var i=0; i<k; i++){
-			tab[linha][coluna+i] = 1;
-		}
-	}
-
-	if(player==2){
-		for(var i=0; i<k; i++){
-			tab[linha][coluna+i] = 2;
-		}
+	for(var i=0; i<k; i++){
+		tab[linha][coluna+i] = player;
 	}
 }
 
 function trocar_esquerda(linha, coluna, k){
-
-	if(player==1){
-		for(var i=0; i<k; i++){
-			tab[linha][coluna-i] = 1;
-		}
-	}
-
-	if(player==2){
-		for(var i=0; i<k; i++){
-			tab[linha][coluna-i] = 2;
-		}
+	for(var i=0; i<k; i++){
+		tab[linha][coluna-i] = player;
 	}
 }
 
 function trocar_cima(linha,coluna,k){
-
-	if(player==1){
-		for(var i=0; i<k; i++){
-			tab[linha+i][coluna] = 1;
-		}
-	}
-
-	if(player==2){
-		for(var i=0; i<k; i++){
-			tab[linha+i][coluna] = 2;
-		}
+	for(var i=0; i<k; i++){
+		tab[linha+i][coluna] = player;
 	}
 }
 
 function trocar_baixo(linha,coluna,k){
-
-	if(player==1){
-		for(var i=0; i<k; i++){
-			tab[linha-i][coluna] = 1;
-		}
-	}
-
-	if(player==2){
-		for(var i=0; i<k; i++){
-			tab[linha-i][coluna] = 2;
-		}
+	for(var i=0; i<k; i++){
+		tab[linha-i][coluna] = player;
 	}
 }
 
 // linha-1 , col+1
 function trocar_dsd(linha,coluna,k){
-	if(player==1){
-		for(var i=0; i<k; i++){
-			tab[linha-i][coluna+i] = 1;
-		}
-	}
-
-	if(player==2){
-		for(var i=0; i<k; i++){
-			tab[linha-i][coluna+i] = 2;
-		}
+	for(var i=0; i<k; i++){
+		tab[linha-i][coluna+i] = player;
 	}
 }
 
 //linha-1, col-1
 function trocar_dse(linha,coluna,k){
-	if(player==1){
-		for(var i=0; i<k; i++){
-			tab[linha-i][coluna-i] = 1;
-		}
-	}
-
-	if(player==2){
-		for(var i=0; i<k; i++){
-			tab[linha-i][coluna-i] = 2;
-		}
+	for(var i=0; i<k; i++){
+		tab[linha-i][coluna-i] = player;
 	}
 }
 
 //linha+1, col-1
 function trocar_did(linha,coluna,k){
-	if(player==1){
-		for(var i=0; i<k; i++){
-			tab[linha+i][coluna-i] = 1;
-		}
-	}
-
-	if(player==2){
-		for(var i=0; i<k; i++){
-			tab[linha+i][coluna-i] = 2;
-		}
+	for(var i=0; i<k; i++){
+		tab[linha+i][coluna-i] = player;
 	}
 }
 
 //linha+1, col+1
 function trocar_die(linha,coluna,k){
-	if(player==1){
-		for(var i=0; i<k; i++){
-			tab[linha+i][coluna+i] = 1;
-		}
-	}
-
-	if(player==2){
-		for(var i=0; i<k; i++){
-			tab[linha+i][coluna+i] = 2;
-		}
+	for(var i=0; i<k; i++){
+		tab[linha+i][coluna+i] = player;
 	}
 }
