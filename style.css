@@ -270,3 +270,22 @@ body {
 	font-weight: bold;
 }
 
+#fim-jogo {
+	display:none;
+	margin-right: 2%;
+	margin-left: 80%;
+	margin-top: 8%;
+	border: 5px solid black;
+	border-radius: 25px;
+	background-color: #DED197;
+	text-align: center;
+  	width: 250px;
+  	height: 600px;  
+  	float: left;
+  	position: absolute;
+  	font-size: 30px;
+}
+
+#fim-jogo p {
+	font-weight: bold;
+}

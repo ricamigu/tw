@@ -1,6 +1,9 @@
 var difcl;
 var player=2;
+var point1=0;
+var point2=0;
 
+/*
 var tab = [
   [0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0],
@@ -10,7 +13,21 @@ var tab = [
   [0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0]
+];*/
+
+var tab = [
+  [1, 1, 1, 1, 1, 1, 1, 0],
+  [1, 1, 1, 1, 1, 1, 1, 1],
+  [1, 1, 1, 1, 1, 1, 1, 1],
+  [1, 1, 1, 1, 2, 1, 1, 1],
+  [1, 1, 1, 2, 1, 1, 1, 1],
+  [1, 1, 1, 1, 1, 1, 1, 1],
+  [1, 1, 1, 1, 1, 1, 1, 1],
+  [1, 1, 1, 1, 1, 1, 1, 1]
 ];
+
+
+
 
 function login() {
 
@@ -21,8 +38,9 @@ function login() {
 	document.getElementById('pag_inicial').style.display = 'none';  
 	document.getElementById('after-login').style.display = 'block';
 	document.getElementById('startgame').style.display = 'block';
-	document.getElementById('configurações').style.display = 'block';
+	//document.getElementById('configurações').style.display = 'block';
 	document.getElementById('regras').style.display = 'none';
+	document.getElementById('cor_peca').style.display = 'none';
 	   /*
 	  if(user === "" || pass === "")
 	    window.alert("Preencha os campos");
@@ -40,6 +58,7 @@ function home(){
 	//document.getElementById('tabuleiro').style.display = 'block';
 	document.getElementById('area_de_jogo').style.display = 'block';
 	document.getElementById('pontuacao').style.display = 'block';
+
 }
 
 function regras(){
@@ -54,10 +73,11 @@ function regras(){
 
 }
 
+/*
 function classficacoes(){
 
 
-}
+}*/
 
 function logout(){
 	document.getElementById('pag_inicial').style.display = 'block';
@@ -65,9 +85,15 @@ function logout(){
 	document.getElementById('regras').style.display = 'none';
 	document.getElementById('startgame').style.display = 'none';
 	document.getElementById('area_de_jogo').style.display = 'none';
+	document.getElementById('cor_peca').style.display = 'none';
 	document.getElementById('tabuleiro').style.display = 'none';
 	document.getElementById('pontuacao').style.display = 'none';
 	document.getElementById('menu-btn').style.display = 'none';
+	point1=0; point2=0;
+	document.getElementById("score1").innerHTML = point1;
+	document.getElementById("score2").innerHTML = point2;
+	document.getElementById('fim-jogo').style.display = 'none';
+	clean_board(); 	
 }
 
 function startgame() {
@@ -83,27 +109,27 @@ function black(){
 	player = 2;
 	//document.getElementById('startgame').style.display = 'none';
 	document.getElementById('dificuldade').style.display = 'block';
-	document.getElementById('configurações').style.display = 'none';
+	//document.getElementById('configurações').style.display = 'none';
 	
 }
 
 function white(){
 	player = 1;
-	document.getElementById('configurações').style.display = 'none';
+	//document.getElementById('configurações').style.display = 'none';
 	document.getElementById('dificuldade').style.display = 'block';
 }
 
 function black1(){
-	player = 2;
+	//player = 2;
 	//document.getElementById('startgame').style.display = 'none';
 	//document.getElementById('dificuldade').style.display = 'block';
-	document.getElementById('configurações').style.display = 'none';
+	//document.getElementById('configurações').style.display = 'none';
 	start1v1();
 }
 
 function white1(){
-	player = 1;
-	document.getElementById('configurações').style.display = 'none';
+	//player = 1;
+	//document.getElementById('configurações').style.display = 'none';
 	//document.getElementById('dificuldade').style.display = 'block';
 	start1v1();
 }
@@ -112,7 +138,7 @@ function white1(){
 function start1v1(){
 	document.getElementById('area_de_jogo').style.display = 'block';
 	document.getElementById('startgame').style.display = 'none';
-	document.getElementById('cor_peca').style.display = 'none';
+	document.getElementById('cor_peca').style.display = 'block';
 	document.getElementById('dificuldade').style.display = 'none';
 	document.getElementById('menu-btn').style.display = 'block';
 	document.getElementById('after-login').style.display = 'none';
@@ -124,6 +150,15 @@ function startvs() {
   	document.getElementById('startgame').style.display = 'none';
  	document.getElementById('cor_peca1').style.display = 'block';
 	
+}
+
+function novo_jogo(){
+	document.getElementById('fim-jogo').style.display = "none";
+	clean_board();
+	point1=0; point2=0;
+	document.getElementById("score1").innerHTML = point1;
+	document.getElementById("score2").innerHTML = point2;
+	preencher();
 }
 
 
@@ -185,12 +220,26 @@ function click_cell(linha,coluna){
 
 	preencher();
 
+	passar();
+		
+	if(end_game()){
+
+		if(point1>point2){
+			document.getElementById('alerta').innerHTML="BRANCO GANHOU";
+		}
+		else document.getElementById('alerta').innerHTML="PRETO GANHOU";
+		document.getElementById('fim-jogo').style.display = "block";
+	}
+
 }
 
 function preencher() {
 
 	for(var linha=0;linha<8;linha++){
 		for(var coluna=0; coluna<8; coluna++){
+			if(tab[linha][coluna]==0){
+				document.getElementById("cell"+linha+coluna).childNodes[0].style.backgroundColor = "green";
+			}
 			if(tab[linha][coluna]==1){
 				document.getElementById("cell"+linha+coluna).childNodes[0].style.backgroundColor = "#FFFFFF";
 			}
@@ -202,12 +251,83 @@ function preencher() {
 
 	if(player==1) document.getElementById('turno').innerHTML="White Turn";
 	if(player==2) document.getElementById('turno').innerHTML="Black Turn";
+	document.getElementById('alerta').innerHTML="";
 }
+
+
+function passar(){
+
+	if (board_cheio()) return true;
+
+	for(var l=0; l<8; l++){
+		for(var c=0; c<8; c++){
+			if(pode_jogar_bool(l,c)) return false;
+		}
+	}
+
+	if(player==1) {
+			player=2;
+			document.getElementById('turno').innerHTML="Black Turn";
+			document.getElementById('alerta').innerHTML="BRANCO PASSOU A JOGADA";
+		}
+		else {
+			player=1;
+			document.getElementById('turno').innerHTML="White Turn";
+			document.getElementById('alerta').innerHTML="PRETO PASSOU A JOGADA";
+		}
+
+	return true;
+}
+
+function end_game(){
+
+	if (board_cheio()) {
+		return true;
+	}
+
+
+	var bool1 = passar();
+	var bool2 = passar();
+
+	if(bool1 && bool2){
+		return true;
+	}
+
+	return false;
+}
+
+function clean_board(){
+
+tab = [
+  [0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 1, 2, 0, 0, 0],
+  [0, 0, 0, 2, 1, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0]
+];
+
+}
+
+
+function board_cheio(){
+
+	for(var l=0; l<8; l++){
+		for(var c=0; c<8; c++){
+			if(tab[l][c] == 0) return false;
+		}
+	}
+	return true;
+}
+
+
 
 function pontuacao(){
 
-	var point1=0;
-	var point2=0;
+	point1=0;
+	point2=0;
 
 	for(var l=0;l<8;l++){
 		for(var c=0;c<8;c++){
@@ -224,6 +344,7 @@ function pontuacao(){
 
 function pode_jogar(linha, coluna){
 
+	if(tab[linha][coluna] != 0) return false;
 
 	return (verificar_lados(linha,coluna) && altera_pecas(linha,coluna) );
 }
@@ -267,7 +388,6 @@ function altera_pecas(linha,coluna){
 	return (direita || esquerda || cima || baixo || dsd || dse || die || did);
 
 }
-
 
 function alterar_direita(linha,coluna){
 
@@ -461,4 +581,135 @@ function trocar_die(linha,coluna,k){
 	for(var i=0; i<k; i++){
 		tab[linha+i][coluna+i] = player;
 	}
+}
+
+
+function pode_jogar_bool(linha, coluna){
+
+	if(tab[linha][coluna] != 0) return false;
+
+	return (verificar_lados(linha,coluna) && altera_pecas_bool(linha,coluna) );
+}
+
+function altera_pecas_bool(linha,coluna){
+	return (alterar_direita_bool(linha, coluna) || alterar_esquerda_bool(linha,coluna) || alterar_cima_bool(linha,coluna) || alterar_baixo_bool(linha,coluna) || alterar_dsd_bool(linha,coluna) || alterar_dse_bool(linha,coluna) || alterar_die_bool(linha,coluna) || alterar_did_bool(linha,coluna));
+}
+
+
+function alterar_direita_bool(linha,coluna){
+
+		if(coluna+1 > 8) return false;
+		else if( tab[linha][coluna+1] == player || tab[linha][coluna+1] == 0) return false;
+		var k=1;
+		for(var i=coluna+2; i<8; i++){
+			k++;
+			if( (tab[linha][i] == player))  return true;
+			if( tab[linha][i] == 0) return false;
+		}
+	return false;
+}
+
+
+function alterar_esquerda_bool(linha,coluna){
+
+	if(coluna-1<0) return false;
+		else if( tab[linha][coluna-1] == player || tab[linha][coluna-1] == 0) return false;
+		var k=1;
+		for(var i=coluna-2; i>=0; i--){
+			k++;
+			if( (tab[linha][i] == player))  return true;
+			if( tab[linha][i] == 0) return false;
+		}
+	return false;
+}
+
+// direcao em baixo
+function alterar_cima_bool(linha,coluna){
+
+		if(linha+1>7) return false;
+		else if(tab[linha+1][coluna] == player || tab[linha+1][coluna] == 0) return false;
+		var k=1;
+		for(var i=linha+2; i<8; i++){
+			k++;
+			if( tab[i][coluna] == player ) return true;
+			if( tab[i][coluna] == 0) return false;
+		}
+	return false;
+}
+
+function alterar_baixo_bool(linha,coluna){
+
+		if(linha-1<0) return false;
+		else if(tab[linha-1][coluna] == player || tab[linha-1][coluna] == 0) return false;
+		var k=1;
+		for(var i=linha-2; i>=0; i--){
+			k++;
+			if( tab[i][coluna] == player ) return true;
+			if( tab[i][coluna] == 0) return false;
+		}
+	return false;
+}
+
+// linha-1 , col+1
+function alterar_dsd_bool(linha,coluna){
+
+		var k=1;
+		if(linha-k < 0 || coluna+k>7) return false;
+		else if(tab[linha-k][coluna+k] == player || tab[linha-k][coluna+k] == 0) return false;
+		for(var i=linha-2; i>=0; i--){
+			k++;
+			if( coluna+k > 7) return false;
+			if( tab[i][coluna+k] == player) return true;
+			if( tab[i][coluna+k] == 0) return false;
+	}
+	return false;
+}
+
+// linha-1 , col-1
+function alterar_dse_bool(linha,coluna){
+
+		var k=1;
+		if(linha-k < 0 || coluna-k<0) return false;
+		else if(tab[linha-k][coluna-k] == player || tab[linha-k][coluna-k] == 0) return false;
+
+		for(var i=linha-2; i>=0; i--){
+			k++;
+			if( coluna-k < 0) return false;
+			if( tab[i][coluna-k] == player) return true;
+			if( tab[i][coluna-k] == 0) return false;
+		}
+	return false;
+}
+
+
+// linha+1 , col-1
+function alterar_die_bool(linha,coluna){
+
+		var k=1;
+		if(linha+k>7 || coluna-k<0) return false;
+		else if(tab[linha+k][coluna-k] == player || tab[linha+k][coluna-k] == 0) return false;
+
+		for(var i=linha+2; i<8; i++){
+			k++;
+			if( coluna-k < 0) return false;
+			if( tab[i][coluna-k] == player) return true;
+			if( tab[i][coluna-k] == 0) return false;
+		}
+	return false;
+}
+
+
+// linha+1 , col+1
+function alterar_did_bool(linha,coluna){
+
+		var k=1;
+		if(linha+k>7 || coluna+k>7) return false;
+		else if(tab[linha+k][coluna+k] == player || tab[linha+k][coluna+k] == 0) return false;
+		for(var i=linha+2; i<8; i++){
+			k++;
+			if( coluna+k>7) return false;
+			if( tab[i][coluna+k] == player) return true;
+			if( tab[i][coluna+k] == 0) return false;
+		}
+	return false;
 }
