@@ -7,11 +7,18 @@ body {
 	background-color: black; 
 	border: 1px solid lightblue;
 	color: white; 
+	display: block;
 	padding: 10px 24px; 
 	cursor: pointer; 
 	float: left;
 	width: 25%;
 }
+
+#menu-btn {
+	display: none;
+}
+
+
 
 #logo {
 	text-align: center;
@@ -42,6 +49,15 @@ body {
 }
 
 #after-login .titulo img {
+    max-height: 100px;
+    max-width: 200px;
+    text-align: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#menu-btn .titulo img {
     max-height: 100px;
     max-width: 200px;
     text-align: center;
@@ -168,6 +184,26 @@ body {
 	border: 2px solid black;
 }
 
+#cor_peca1 {
+	margin-left: 33%;
+	display:none;
+	margin-top: 15%;
+	vertical-align: center;
+	text-align: center;
+	border: 5px solid black;
+	border-radius: 25px;
+	background-color: #DED197;
+	padding: 20px; 
+  	width: 600px;
+  	height: 150px;  
+  	padding-bottom: 50px;
+}
+
+#cor_peca1 button {
+	border: 2px solid black;
+}
+
+
 #dificuldade {
 	margin-left: 33%;
 	display:none;
@@ -185,9 +221,11 @@ body {
 
 
 #area_de_jogo{
-	margin-top: 1%;
+	margin-top: 3%;
 	text-align: center;
 	display:none;
+	font-weight: bold;
+	font-size: 40px;
 }
 
 #tabuleiro {
@@ -195,7 +233,6 @@ body {
 	margin-left: 35%;
 	margin-top: 3%;
 	text-align: center;
-	position: relative;
 	border: 5px solid black;
 	height: 550px;
 	width: 550px;
@@ -213,3 +250,23 @@ body {
 .row {
     display: table-row;
 }
+
+#pontuacao {
+	display:none;
+	margin-left: 2%;
+	margin-top: 8%;
+	border: 5px solid black;
+	border-radius: 25px;
+	background-color: #DED197;
+	text-align: center;
+  	width: 250px;
+  	height: 600px;  
+  	float: left;
+  	position: absolute;
+  	font-size: 30px;
+}
+
+#pontuacao p {
+	font-weight: bold;
+}
+

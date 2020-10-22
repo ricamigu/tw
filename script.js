@@ -22,7 +22,7 @@ function login() {
 	document.getElementById('pag_inicial').style.display = 'none';  
 	document.getElementById('after-login').style.display = 'block';
 	document.getElementById('startgame').style.display = 'block';
-
+	document.getElementById('configurações').style.display = 'block';
 	document.getElementById('regras').style.display = 'none';
 	   /*
 	  if(user === "" || pass === "")
@@ -40,6 +40,7 @@ function home(){
 	document.getElementById('regras').style.display = 'none';
 	//document.getElementById('tabuleiro').style.display = 'block';
 	document.getElementById('area_de_jogo').style.display = 'block';
+	document.getElementById('pontuacao').style.display = 'block';
 }
 
 function regras(){
@@ -50,6 +51,8 @@ function regras(){
 	document.getElementById('cor_peca').style.display = 'none';
 	document.getElementById('area_de_jogo').style.display = 'none';
 	document.getElementById('tabuleiro').style.display = 'none';
+	document.getElementById('pontuacao').style.display = 'none';
+
 }
 
 function classficacoes(){
@@ -64,6 +67,8 @@ function logout(){
 	document.getElementById('startgame').style.display = 'none';
 	document.getElementById('area_de_jogo').style.display = 'none';
 	document.getElementById('tabuleiro').style.display = 'none';
+	document.getElementById('pontuacao').style.display = 'none';
+	document.getElementById('menu-btn').style.display = 'none';
 }
 
 function startgame() {
@@ -73,13 +78,7 @@ function startgame() {
 
 
 }
-/*
-function startvs() {
-  //document.getElementById('tabuleiro').style.display = 'block';
-  document.getElementById('regras').style.display = 'none';
-  //document.getElementById('dificuldade').style.display = 'block';
-  document.getElementById('startgame').style.display = 'block'; //pq ainda nao é para fazer 
-}*/
+
 
 function black(){
 	player = 2;
@@ -95,12 +94,49 @@ function white(){
 	document.getElementById('dificuldade').style.display = 'block';
 }
 
+function black1(){
+	player = 2;
+	//document.getElementById('startgame').style.display = 'none';
+	//document.getElementById('dificuldade').style.display = 'block';
+	document.getElementById('configurações').style.display = 'none';
+	start1v1();
+}
+
+function white1(){
+	player = 1;
+	document.getElementById('configurações').style.display = 'none';
+	//document.getElementById('dificuldade').style.display = 'block';
+	start1v1();
+}
+
+
+function start1v1(){
+	document.getElementById('area_de_jogo').style.display = 'block';
+	document.getElementById('startgame').style.display = 'none';
+	document.getElementById('cor_peca').style.display = 'none';
+	document.getElementById('dificuldade').style.display = 'none';
+	document.getElementById('menu-btn').style.display = 'block';
+	document.getElementById('after-login').style.display = 'none';
+	document.getElementById('pontuacao').style.display = 'block';
+	preencher();
+}
+
+function startvs() {
+  	document.getElementById('startgame').style.display = 'none';
+ 	document.getElementById('cor_peca1').style.display = 'block';
+	
+}
+
+
 function dif_easy(){
 	difcl = 1;
 	document.getElementById('area_de_jogo').style.display = 'block';
 	document.getElementById('startgame').style.display = 'none';
 	document.getElementById('cor_peca').style.display = 'none';
 	document.getElementById('dificuldade').style.display = 'none';
+	document.getElementById('menu-btn').style.display = 'block';
+	document.getElementById('after-login').style.display = 'none';
+	document.getElementById('pontuacao').style.display = 'block';
 	preencher();
 }
 
@@ -110,6 +146,9 @@ function dif_medium(){
 	document.getElementById('startgame').style.display = 'none';
 	document.getElementById('cor_peca').style.display = 'none';
 	document.getElementById('dificuldade').style.display = 'none';
+	document.getElementById('menu-btn').style.display = 'block';
+	document.getElementById('after-login').style.display = 'none';
+	document.getElementById('pontuacao').style.display = 'block';
 	preencher();
 }
 
@@ -119,6 +158,9 @@ function dif_hard(){
 	document.getElementById('startgame').style.display = 'none';
 	document.getElementById('cor_peca').style.display = 'none';
 	document.getElementById('dificuldade').style.display = 'none';
+	document.getElementById('menu-btn').style.display = 'block';
+	document.getElementById('after-login').style.display = 'none';
+	document.getElementById('pontuacao').style.display = 'block';
 	preencher();
 }
 
@@ -161,6 +203,29 @@ function preencher() {
 		}
 	}
 
+	if(player==1) document.getElementById('turno').innerHTML="White Turn";
+	if(player==2) document.getElementById('turno').innerHTML="Black Turn";
+}
+
+function pontuacao(){
+
+	var point1=0;
+	var point2=0;
+
+	for(var l=0;l<8;l++){
+		for(var c=0;c<8;c++){
+			if(tab[l][c] == 1) point1++;
+			if(tab[l][c] == 2) point2++;
+		}
+	}
+
+	document.getElementById("score1").innerHTML = point1;
+	document.getElementById("score2").innerHTML = point2;
+
+	/*
+	document.getElementById('pontuacao').childNodes[0].innerHTML = point1;
+	document.getElementById('pontuacao').childNodes[1].innerHTML = point2;
+	*/
 }
 
 
@@ -218,20 +283,15 @@ function alterar_direita(linha,coluna){
 
 		if(coluna+1 > 8) return false;
 		else if( tab[linha][coluna+1] == 1 || tab[linha][coluna+1] == 0) return false;
-
-		//lado direito
 		var k=1;
 		for(var i=coluna+2; i<8; i++){
 			k++;
 			if( (tab[linha][i] == 1))  { trocar_pecas(linha, coluna, 1, k); return true; }
 			if( tab[linha][i] == 0) return false;
 		}
-
-
 	}
 
 	else if(player==2){
-		
 		
 		var k=1;
 		if(coluna+1 > 8) return false;
@@ -241,11 +301,8 @@ function alterar_direita(linha,coluna){
 			if((tab[linha][i] == 2)) { trocar_pecas(linha, coluna, 1, k); return true; }
 			if( tab[linha][i] == 0) return false;
 		}
-
 	}
-
 	return false;
-
 }
 
 
@@ -260,8 +317,6 @@ function alterar_esquerda(linha,coluna){
 			if( (tab[linha][i] == 1))  { trocar_pecas(linha, coluna, 2, k); return true; }
 			if( tab[linha][i] == 0) return false;
 		}
-
-
 	}
 
 	else if(player==2){
@@ -274,18 +329,14 @@ function alterar_esquerda(linha,coluna){
 			if( tab[linha][i] == 2 ) { trocar_pecas(linha, coluna, 2, k); return true; }
 			if( tab[linha][i] == 0 ) return false;
 		}
-
 	}
-
 	return false;
-
 }
 
 
 function alterar_cima(linha,coluna){
 
 	if(player==1){
-		
 
 		if(linha+1>7) return false;
 		else if(tab[linha+1][coluna] == 1 || tab[linha+1][coluna] == 0) return false;
@@ -295,13 +346,10 @@ function alterar_cima(linha,coluna){
 			if( tab[i][coluna] == 1 ) { trocar_pecas(linha,coluna,3,k); return true; }
 			if( tab[i][coluna] == 0) return false;
 		}
-
-
 	}
 
 	else if(player==2){
 		
-
 		if(linha+1>7) return false;
 		else if(tab[linha+1][coluna] == 2 || tab[linha+1][coluna] == 0) return false;
 		var k=1;
@@ -310,18 +358,14 @@ function alterar_cima(linha,coluna){
 			if( tab[i][coluna] == 2) { trocar_pecas(linha,coluna,3,k); return true; }
 			if( tab[i][coluna] == 0) return false;
 		}
-
 	}
-
 	return false;
-
 }
 
 function alterar_baixo(linha,coluna){
 
 
 	if(player==1){
-		
 
 		if(linha-1<0) return false;
 		else if(tab[linha-1][coluna] == 1 || tab[linha-1][coluna] == 0) return false;
@@ -331,13 +375,10 @@ function alterar_baixo(linha,coluna){
 			if( tab[i][coluna] == 1 ) { trocar_pecas(linha,coluna,4,k); return true; }
 			if( tab[i][coluna] == 0) return false;
 		}
-
-
 	}
 
 	else if(player==2){
 		
-
 		if(linha-1<0) return false;
 		else if(tab[linha-1][coluna] == 2 || tab[linha-1][coluna] == 0) return false;
 		var k=1;
@@ -346,23 +387,18 @@ function alterar_baixo(linha,coluna){
 			if( tab[i][coluna] == 2) { trocar_pecas(linha,coluna,4,k); return true; }
 			if( tab[i][coluna] == 0) return false;
 		}
-
 	}
-
 	return false;
 }
 
 // linha-1 , col+1
 function alterar_dsd(linha,coluna){
 
-	
 	if(player==1){
 
 		var k=1;
-
 		if(linha-k < 0 || coluna+k>7) return false;
 		else if(tab[linha-k][coluna+k] == 1 || tab[linha-k][coluna+k] == 0) return false;
-
 		for(var i=linha-2; i>=0; i--){
 			k++;
 			if( coluna+k > 7) return false;
@@ -371,14 +407,11 @@ function alterar_dsd(linha,coluna){
 		}
 	}
 
-
 	if(player==2){
 
 		var k=1;
-
 		if(linha-k < 0 || coluna+k>7) return false; 
 		else if(tab[linha-k][coluna+k] == 2 || tab[linha-k][coluna+k] == 0) return false;
-
 		for(var i=linha-2; i>=0; i--){
 			k++;
 			if( coluna+k > 7) return false;
@@ -386,7 +419,6 @@ function alterar_dsd(linha,coluna){
 			if( tab[i][coluna+k] == 0) return false;
 		}
 	}
-
 	return false;
 }
 
@@ -395,9 +427,7 @@ function alterar_dse(linha,coluna){
 
 	
 	if(player==1){
-
 		var k=1;
-
 		if(linha-k < 0 || coluna-k<0) return false;
 		else if(tab[linha-k][coluna-k] == 1 || tab[linha-k][coluna-k] == 0) return false;
 
@@ -409,11 +439,9 @@ function alterar_dse(linha,coluna){
 		}
 	}
 
-
 	if(player==2){
 
 		var k=1;
-
 		if(linha-k < 0 || coluna-k<0) return false; 
 		else if(tab[linha-k][coluna-k] == 2 || tab[linha-k][coluna-k] == 0) return false;
 
@@ -424,7 +452,6 @@ function alterar_dse(linha,coluna){
 			if( tab[i][coluna-k] == 0) return false;
 		}
 	}
-
 	return false;
 }
 
@@ -434,9 +461,7 @@ function alterar_die(linha,coluna){
 
 	
 	if(player==1){
-
 		var k=1;
-
 		if(linha+k>7 || coluna-k<0) return false;
 		else if(tab[linha+k][coluna-k] == 1 || tab[linha+k][coluna-k] == 0) return false;
 
@@ -448,14 +473,11 @@ function alterar_die(linha,coluna){
 		}
 	}
 
-
 	if(player==2){
 
 		var k=1;
-
 		if(linha+k>7 || coluna-k<0) return false; 
 		else if(tab[linha+k][coluna-k] == 2 || tab[linha+k][coluna-k] == 0) return false;
-
 		for(var i=linha+2; i<8; i++){
 			k++;
 			if( coluna-k <0) return false;
@@ -463,7 +485,6 @@ function alterar_die(linha,coluna){
 			if( tab[i][coluna-k] == 0) return false;
 		}
 	}
-
 	return false;
 }
 
@@ -473,12 +494,9 @@ function alterar_did(linha,coluna){
 
 	
 	if(player==1){
-
 		var k=1;
-
 		if(linha+k>7 || coluna+k>7) return false;
 		else if(tab[linha+k][coluna+k] == 1 || tab[linha+k][coluna+k] == 0) return false;
-
 		for(var i=linha+2; i<8; i++){
 			k++;
 			if( coluna+k>7) return false;
@@ -487,14 +505,11 @@ function alterar_did(linha,coluna){
 		}
 	}
 
-
 	if(player==2){
 
 		var k=1;
-
 		if(linha+k>7 || coluna+k>7) return false; 
 		else if(tab[linha+k][coluna+k] == 2 || tab[linha+k][coluna+k] == 0) return false;
-
 		for(var i=linha+2; i<8; i++){
 			k++;
 			if( coluna+k>7) return false;
@@ -502,7 +517,6 @@ function alterar_did(linha,coluna){
 			if( tab[i][coluna+k] == 0) return false;
 		}
 	}
-
 	return false;
 }
 
@@ -527,6 +541,7 @@ function trocar_pecas(linha, coluna, tp, k){
 		case 8: trocar_die(linha,coluna,k);
 				break;
 	}
+	pontuacao();
 }
 
 function trocar_direita(linha, coluna, k){
@@ -542,7 +557,6 @@ function trocar_direita(linha, coluna, k){
 			tab[linha][coluna+i] = 2;
 		}
 	}
-
 }
 
 function trocar_esquerda(linha, coluna, k){

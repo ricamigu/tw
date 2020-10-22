@@ -24,19 +24,19 @@
 		</div>
  	</div>
 
- 	<div id='after-login'>
-	 	<div class=titulo>
+ 	<div id="menu-btn">
+ 		<div class=titulo>
 	 		<img src="imagens/othello_logo.png">
 	 	</div>
-	 	<br>
-	 	<div class="btn-group">
-			<button onclick="home()">Home</button>
-			<button onclick="regras()">Regras</button>
-			<button onclick="classificacao()">Classificações</button>
-			<button onclick="logout()">Logout</button>
+		<div class="btn-group">
+				<button onclick="home()">Home</button>
+				<button onclick="regras()">Regras</button>
+				<button onclick="classificacao()">Classificações</button>
+				<button onclick="logout()">Logout</button>
 		</div>
+	</div>
 
-		<div id='regras'>
+	<div id='regras'>
 			<br><br>
 			<h2>Regras do Othello</h2>
 			<p>O <b>Othello</b> é uma variante moderna do Reversi. Difere deste por fixar a posição inicial das 4 peças/discos iniciais nas casas centrais.</p>
@@ -104,6 +104,12 @@
 				<li>Ganha o jogador com maior número de peças</li>
 			</ul>
 		</div>
+ 	<div id='after-login'>
+	 	<br>
+	 	<div class=titulo>
+	 		<img src="imagens/othello_logo.png">
+	 	</div>
+		
 
 		<div id='configurações'> 
 			<div id="startgame">
@@ -111,6 +117,14 @@
 				<button class="button1" onclick="startvs()"><span> 1 Vs 1</span></button>
 				<button class="button1" onclick="startgame()"><span>1 Vs IA</span></button>
 			</div>
+
+			<div id='cor_peca1'>
+				<h1>Cor da peça</h1>
+				<button class="button1" onclick="white1()"><span> <div class="piece light inline"></div></span></button>
+				<button class="button1" onclick="black1()"><span> <div class="piece dark inline"></div></span></button>
+				<br><br>
+			</div>
+
 
 			<div id='cor_peca'>
 				<h1>Cor da peça</h1>
@@ -132,9 +146,20 @@
 
 	</div>
 
+	
+
+	 <div id='pontuacao'>
+	 	<h3>Pontuação</h3>
+	 	<br><br>
+	 	<p>player 1:</p>
+	 	<div id='score1'>0</div>
+	 	<p>player 2:</p>
+	 	<div id='score2'>0</div>
+	 </div>
 	<div id=area_de_jogo>
-			<br><br>
+			<br>
 			<div id='turno'>Black turn</div>
+
 			<div id='tabuleiro'>
 				<div class='row'>
 					<div class='cell' id="cell00" onclick="click_cell(0,0);"><div class="piece"></div></div>
