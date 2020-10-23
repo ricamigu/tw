@@ -1,7 +1,11 @@
-var difcl;
+var difcl=0;
 var player=2;
 var point1=0;
 var point2=0;
+var bot=0;
+var jogada=0;
+
+
 
 
 var tab = [
@@ -102,22 +106,28 @@ function startgame() {
   document.getElementById('startgame').style.display = 'none';
   document.getElementById('cor_peca').style.display = 'block';
 
-
 }
 
 
 function black(){
+	bot = 1;
 	player = 2;
 	//document.getElementById('startgame').style.display = 'none';
 	document.getElementById('dificuldade').style.display = 'block';
+	document.getElementById('cor_peca').style.display = 'none';
 	//document.getElementById('configurações').style.display = 'none';
+	first_play();
+	start1v1();
 	
 }
 
 function white(){
+	bot = 2;
 	player = 1;
-	//document.getElementById('configurações').style.display = 'none';
 	document.getElementById('dificuldade').style.display = 'block';
+	document.getElementById('cor_peca').style.display = 'none';
+	first_play();
+	start1v1();
 }
 
 function black1(){
@@ -199,39 +209,66 @@ function dif_hard(){
 	preencher();
 }
 
-function click_cell(linha,coluna){
+function first_play(){
 
-	// funcao para verificar se pode jogar
-	if(pode_jogar(linha, coluna)){
-
-		if ((player==1)){
-			tab[linha][coluna] = 1;
-			player=2;
-			document.getElementById('turno').innerHTML="Black Turn";
-		} 
-
-		else if ((player==2)){
-			tab[linha][coluna] = 2;
-			player=1;
-			document.getElementById('turno').innerHTML="White Turn";
+	if(jogada==0){
+		if(bot==2){
+			tab[3][2]=2;
+			tab[3][3]=2;
+			jogada=bot;
+			preencher();
 		}
 	}
+}
 
-	else window.alert("Não pode jogar nessa posição");
+function click_cell(linha,coluna){
+
+	if(bot==0){
+
+		// funcao para verificar se pode jogar
+		if(pode_jogar(linha, coluna)){
+
+			if ((player==1)){
+				tab[linha][coluna] = 1;
+				player=2;
+				document.getElementById('turno').innerHTML="Black Turn";
+			} 
+
+			else if ((player==2)){
+				tab[linha][coluna] = 2;
+				player=1;
+				document.getElementById('turno').innerHTML="White Turn";
+			}
+		}
+
+		else window.alert("Não pode jogar nessa posição");
+	}
+
+	else if(bot==1 || bot==2){
+
+		if(pode_jogar(linha,coluna)){
+			tab[linha][coluna] = player;
+
+			//bot
+			bot_easy();
+			//tab[0][0] = bot;
+
+		}
+		else window.alert("Não pode jogar nessa posição");
+	}
 
 	preencher();
 
-	passar();
-		
-	if(end_game()){
+		passar();
+			
+		if(end_game()){
 
-		if(point1>point2){
-			document.getElementById('alerta').innerHTML="BRANCO GANHOU";
+			if(point1>point2){
+				document.getElementById('alerta').innerHTML="BRANCO GANHOU";
+			}
+			else document.getElementById('alerta').innerHTML="PRETO GANHOU";
+			document.getElementById('fim-jogo').style.display = "block";
 		}
-		else document.getElementById('alerta').innerHTML="PRETO GANHOU";
-		document.getElementById('fim-jogo').style.display = "block";
-	}
-
 }
 
 function preencher() {
@@ -252,6 +289,7 @@ function preencher() {
 
 	if(player==1) document.getElementById('turno').innerHTML="White Turn";
 	if(player==2) document.getElementById('turno').innerHTML="Black Turn";
+
 	document.getElementById('alerta').innerHTML="";
 }
 
@@ -714,3 +752,414 @@ function alterar_did_bool(linha,coluna){
 		}
 	return false;
 }
+
+
+// ------------------------------------------------------------------------ AI -----------------------------------------------------------------------
+
+
+function bot_easy(){
+
+	var max=0;
+	var lmax=0;
+	var cmax=0;
+	var cur=0;
+
+	for(var l=0; l<8; l++){
+		for(var c=0; c<8; c++){
+			cur = pode_jogar_easy(l,c)
+			if(cur>max){
+				lmax=l;
+				cmax=c;
+				max=cur;
+			}
+		}
+	}
+
+	if(max>0){
+		//tab[lmax][cmax]= bot;
+		alterar_pecas_bot(lmax,cmax);
+
+	}
+	else {
+		document.getElementById('alerta').innerHTML = "AI PASSOU A JOGADA";
+	}
+
+}
+
+function pode_jogar_easy(linha, coluna){
+
+	if(tab[linha][coluna] != 0) return 0;
+
+	if (!(verificar_lados_easy(linha,coluna))) return 0;
+
+	return altera_pecas_easy(linha,coluna);
+}
+
+function verificar_lados_easy(linha,coluna){
+
+	// condicao para dar fix a quando a posicao sai fora do tabuleiro
+	var linhama1 = linha+1; if (linhama1 > 7) linhama1 = 7;
+	var linhame1 = linha-1; if (linhame1 < 0) linhame1 = 0;
+	var colma1 = coluna+1; if (colma1 > 7) colma1 = 7;
+	var colme1 = coluna-1; if (colme1 < 0) colme1 = 0;
+	
+	if((bot==1)){
+		if( (tab[linha][colma1] == 2) || (tab[linha][colme1] == 2) || (tab[linhama1][coluna] == 2)  || (tab[linhama1][colma1] == 2) || (tab[linhama1][colme1] == 2) || (tab[linhame1][coluna] == 2) || (tab[linhame1][colma1] == 2) || (tab[linhame1][colme1] == 2))
+			return true;
+	}
+
+	if((bot==2)){
+		if( (tab[linha][colma1] == 1) || (tab[linha][colme1] == 1) || (tab[linhama1][coluna] == 1)  || (tab[linhama1][colma1] == 1) || (tab[linhama1][colme1] == 1)  ||  (tab[linhame1][colma1] == 1) || (tab[linhame1][colme1] == 1)  || (tab[linhame1][coluna] == 1) )
+			return true;
+	}
+
+	return false;
+
+}
+
+
+
+function altera_pecas_easy(linha,coluna){
+
+	var direita = alterar_direita_easy(linha, coluna);
+	var esquerda = alterar_esquerda_easy(linha,coluna);
+	var cima = alterar_cima_easy(linha,coluna);
+	var baixo = alterar_baixo_easy(linha,coluna);
+	var dsd = alterar_dsd_easy(linha,coluna);
+	var dse = alterar_dse_easy(linha,coluna);
+	var die = alterar_die_easy(linha,coluna);
+	var did = alterar_did_easy(linha,coluna);
+
+	return (direita + esquerda + cima + baixo + dsd + dse + die + did);
+
+}
+
+
+function alterar_direita_easy(linha,coluna){
+
+		if(coluna+1 > 8) return 0;
+		else if( tab[linha][coluna+1] == bot || tab[linha][coluna+1] == 0) return 0;
+		var k=1;
+		for(var i=coluna+2; i<8; i++){
+			k++;
+			if( (tab[linha][i] == bot))  return k;
+			if( tab[linha][i] == 0) return 0;
+		}
+	return 0;
+}
+
+
+function alterar_esquerda_easy(linha,coluna){
+
+	if(coluna-1<0) return 0;
+		else if( tab[linha][coluna-1] == bot || tab[linha][coluna-1] == 0) return 0;
+		var k=1;
+		for(var i=coluna-2; i>=0; i--){
+			k++;
+			if( (tab[linha][i] == bot))  return k;
+			if( tab[linha][i] == 0) return 0;
+		}
+	return 0;
+}
+
+// direcao em baixo
+function alterar_cima_easy(linha,coluna){
+
+		if(linha+1>7) return 0;
+		else if(tab[linha+1][coluna] == bot || tab[linha+1][coluna] == 0) return 0;
+		var k=1;
+		for(var i=linha+2; i<8; i++){
+			k++;
+			if( tab[i][coluna] == bot ) return k;
+			if( tab[i][coluna] == 0) return 0;
+		}
+	return 0;
+}
+
+function alterar_baixo_easy(linha,coluna){
+
+		if(linha-1<0) return 0;
+		else if(tab[linha-1][coluna] == bot || tab[linha-1][coluna] == 0) return 0;
+		var k=1;
+		for(var i=linha-2; i>=0; i--){
+			k++;
+			if( tab[i][coluna] == bot ) return k;
+			if( tab[i][coluna] == 0) return 0;
+		}
+	return 0;
+}
+
+// linha-1 , col+1
+function alterar_dsd_easy(linha,coluna){
+
+		var k=1;
+		if(linha-k < 0 || coluna+k>7) return 0;
+		else if(tab[linha-k][coluna+k] == bot || tab[linha-k][coluna+k] == 0) return 0;
+		for(var i=linha-2; i>=0; i--){
+			k++;
+			if( coluna+k > 7) return 0;
+			if( tab[i][coluna+k] == bot) return k;
+			if( tab[i][coluna+k] == 0) return 0;
+	}
+	return 0;
+}
+
+// linha-1 , col-1
+function alterar_dse_easy(linha,coluna){
+
+		var k=1;
+		if(linha-k < 0 || coluna-k<0) return 0;
+		else if(tab[linha-k][coluna-k] == bot || tab[linha-k][coluna-k] == 0) return 0;
+
+		for(var i=linha-2; i>=0; i--){
+			k++;
+			if( coluna-k < 0) return 0;
+			if( tab[i][coluna-k] == bot) return k;
+			if( tab[i][coluna-k] == 0) return 0;
+		}
+	return 0;
+}
+
+
+// linha+1 , col-1
+function alterar_die_easy(linha,coluna){
+
+		var k=1;
+		if(linha+k>7 || coluna-k<0) return 0;
+		else if(tab[linha+k][coluna-k] == bot || tab[linha+k][coluna-k] == 0) return 0;
+
+		for(var i=linha+2; i<8; i++){
+			k++;
+			if( coluna-k < 0) return 0;
+			if( tab[i][coluna-k] == bot) return k;
+			if( tab[i][coluna-k] == 0) return 0;
+		}
+	return 0;
+}
+
+
+// linha+1 , col+1
+function alterar_did_easy(linha,coluna){
+
+		var k=1;
+		if(linha+k>7 || coluna+k>7) return 0;
+		else if(tab[linha+k][coluna+k] == bot || tab[linha+k][coluna+k] == 0) return 0;
+		for(var i=linha+2; i<8; i++){
+			k++;
+			if( coluna+k>7) return 0;
+			if( tab[i][coluna+k] == bot) return k;
+			if( tab[i][coluna+k] == 0) return 0;
+		}
+	return 0;
+}
+
+
+function alterar_pecas_bot(linha,coluna){
+
+	var direita = alterar_direita_bot(linha, coluna);
+	var esquerda = alterar_esquerda_bot(linha,coluna);
+	var cima = alterar_cima_bot(linha,coluna);
+	var baixo = alterar_baixo_bot(linha,coluna);
+	var dsd = alterar_dsd_bot(linha,coluna);
+	var dse = alterar_dse_bot(linha,coluna);
+	var die = alterar_die_bot(linha,coluna);
+	var did = alterar_did_bot(linha,coluna);
+
+	return (direita || esquerda || cima || baixo || dsd || dse || die || did);
+
+}
+
+function alterar_direita_bot(linha,coluna){
+
+		if(coluna+1 > 8) return false;
+		else if( tab[linha][coluna+1] == bot || tab[linha][coluna+1] == 0) return false;
+		var k=1;
+		for(var i=coluna+2; i<8; i++){
+			k++;
+			if( (tab[linha][i] == bot))  { trocar_pecas_bot(linha, coluna, 1, k); return true; }
+			if( tab[linha][i] == 0) return false;
+		}
+	return false;
+}
+
+
+function alterar_esquerda_bot(linha,coluna){
+
+	if(coluna-1<0) return false;
+		else if( tab[linha][coluna-1] == bot || tab[linha][coluna-1] == 0) return false;
+		var k=1;
+		for(var i=coluna-2; i>=0; i--){
+			k++;
+			if( (tab[linha][i] == bot))  { trocar_pecas_bot(linha, coluna, 2, k); return true; }
+			if( tab[linha][i] == 0) return false;
+		}
+	return false;
+}
+
+// direcao em baixo
+function alterar_cima_bot(linha,coluna){
+
+		if(linha+1>7) return false;
+		else if(tab[linha+1][coluna] == bot || tab[linha+1][coluna] == 0) return false;
+		var k=1;
+		for(var i=linha+2; i<8; i++){
+			k++;
+			if( tab[i][coluna] == bot ) { trocar_pecas_bot(linha,coluna,3,k); return true; }
+			if( tab[i][coluna] == 0) return false;
+		}
+	return false;
+}
+
+function alterar_baixo_bot(linha,coluna){
+
+		if(linha-1<0) return false;
+		else if(tab[linha-1][coluna] == bot || tab[linha-1][coluna] == 0) return false;
+		var k=1;
+		for(var i=linha-2; i>=0; i--){
+			k++;
+			if( tab[i][coluna] == bot ) { trocar_pecas_bot(linha,coluna,4,k); return true; }
+			if( tab[i][coluna] == 0) return false;
+		}
+	return false;
+}
+
+// linha-1 , col+1
+function alterar_dsd_bot(linha,coluna){
+
+		var k=1;
+		if(linha-k < 0 || coluna+k>7) return false;
+		else if(tab[linha-k][coluna+k] == bot || tab[linha-k][coluna+k] == 0) return false;
+		for(var i=linha-2; i>=0; i--){
+			k++;
+			if( coluna+k > 7) return false;
+			if( tab[i][coluna+k] == bot) { trocar_pecas_bot(linha,coluna,5,k); return true;}
+			if( tab[i][coluna+k] == 0) return false;
+	}
+	return false;
+}
+
+// linha-1 , col-1
+function alterar_dse_bot(linha,coluna){
+
+		var k=1;
+		if(linha-k < 0 || coluna-k<0) return false;
+		else if(tab[linha-k][coluna-k] == bot || tab[linha-k][coluna-k] == 0) return false;
+
+		for(var i=linha-2; i>=0; i--){
+			k++;
+			if( coluna-k < 0) return false;
+			if( tab[i][coluna-k] == bot) { trocar_pecas_bot(linha,coluna,6,k); return true;}
+			if( tab[i][coluna-k] == 0) return false;
+		}
+	return false;
+}
+
+
+// linha+1 , col-1
+function alterar_die_bot(linha,coluna){
+
+		var k=1;
+		if(linha+k>7 || coluna-k<0) return false;
+		else if(tab[linha+k][coluna-k] == bot || tab[linha+k][coluna-k] == 0) return false;
+
+		for(var i=linha+2; i<8; i++){
+			k++;
+			if( coluna-k < 0) return false;
+			if( tab[i][coluna-k] == bot) { trocar_pecas_bot(linha,coluna,7,k); return true;}
+			if( tab[i][coluna-k] == 0) return false;
+		}
+	return false;
+}
+
+
+// linha+1 , col+1
+function alterar_did_bot(linha,coluna){
+
+		var k=1;
+		if(linha+k>7 || coluna+k>7) return false;
+		else if(tab[linha+k][coluna+k] == bot || tab[linha+k][coluna+k] == 0) return false;
+		for(var i=linha+2; i<8; i++){
+			k++;
+			if( coluna+k>7) return false;
+			if( tab[i][coluna+k] == bot) { trocar_pecas_bot(linha,coluna,8,k); return true;}
+			if( tab[i][coluna+k] == 0) return false;
+		}
+	return false;
+}
+
+
+function trocar_pecas_bot(linha, coluna, tp, k){
+
+	switch(tp){
+		case 1: trocar_direita_bot(linha, coluna, k);
+				break;
+		case 2: trocar_esquerda_bot(linha, coluna, k);
+				break;
+		case 3: trocar_cima_bot(linha, coluna, k);
+				break;
+		case 4: trocar_baixo_bot(linha, coluna, k);
+				break;
+		case 5: trocar_dsd_bot(linha,coluna, k);
+				break;
+		case 6: trocar_dse_bot(linha,coluna,k);
+				break;
+		case 7: trocar_did_bot(linha,coluna,k);
+				break;
+		case 8: trocar_die_bot(linha,coluna,k);
+				break;
+	}
+	pontuacao();
+}
+
+function trocar_direita_bot(linha, coluna, k){
+	for(var i=0; i<k; i++){
+		tab[linha][coluna+i] = bot;
+	}
+}
+
+function trocar_esquerda_bot(linha, coluna, k){
+	for(var i=0; i<k; i++){
+		tab[linha][coluna-i] = bot;
+	}
+}
+
+function trocar_cima_bot(linha,coluna,k){
+	for(var i=0; i<k; i++){
+		tab[linha+i][coluna] = bot;
+	}
+}
+
+function trocar_baixo_bot(linha,coluna,k){
+	for(var i=0; i<k; i++){
+		tab[linha-i][coluna] = bot;
+	}
+}
+
+// linha-1 , col+1
+function trocar_dsd_bot(linha,coluna,k){
+	for(var i=0; i<k; i++){
+		tab[linha-i][coluna+i] = bot;
+	}
+}
+
+//linha-1, col-1
+function trocar_dse_bot(linha,coluna,k){
+	for(var i=0; i<k; i++){
+		tab[linha-i][coluna-i] = bot;
+	}
+}
+
+//linha+1, col-1
+function trocar_did_bot(linha,coluna,k){
+	for(var i=0; i<k; i++){
+		tab[linha+i][coluna-i] = bot;
+	}
+}
+
+//linha+1, col+1
+function trocar_die_bot(linha,coluna,k){
+	for(var i=0; i<k; i++){
+		tab[linha+i][coluna+i] = bot;
+	}
+}
+
