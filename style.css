@@ -127,7 +127,7 @@ body {
     display: inline-block;
     border-radius: 25px;
     background-color: #B39F57;
-    border: none;
+    border: 2px solid black;
     color: black;
     text-align: center;
     font-size: 28px;

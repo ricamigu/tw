@@ -116,8 +116,8 @@ function black(){
 	document.getElementById('dificuldade').style.display = 'block';
 	document.getElementById('cor_peca').style.display = 'none';
 	//document.getElementById('configurações').style.display = 'none';
-	first_play();
-	start1v1();
+	//first_play();
+	//start1v1();
 	
 }
 
@@ -126,8 +126,8 @@ function white(){
 	player = 1;
 	document.getElementById('dificuldade').style.display = 'block';
 	document.getElementById('cor_peca').style.display = 'none';
-	first_play();
-	start1v1();
+	//first_play();
+	//start1v1();
 }
 
 function black1(){
@@ -169,6 +169,7 @@ function novo_jogo(){
 	point1=0; point2=0;
 	document.getElementById("score1").innerHTML = point1;
 	document.getElementById("score2").innerHTML = point2;
+	document.getElementById('tabuleiro').style.display = "block";
 	preencher();
 }
 
@@ -182,6 +183,8 @@ function dif_easy(){
 	document.getElementById('menu-btn').style.display = 'block';
 	document.getElementById('after-login').style.display = 'none';
 	document.getElementById('pontuacao').style.display = 'block';
+	first_play();
+	start1v1();
 	preencher();
 }
 
@@ -194,6 +197,8 @@ function dif_medium(){
 	document.getElementById('menu-btn').style.display = 'block';
 	document.getElementById('after-login').style.display = 'none';
 	document.getElementById('pontuacao').style.display = 'block';
+	first_play();
+	start1v1();
 	preencher();
 }
 
@@ -206,6 +211,8 @@ function dif_hard(){
 	document.getElementById('menu-btn').style.display = 'block';
 	document.getElementById('after-login').style.display = 'none';
 	document.getElementById('pontuacao').style.display = 'block';
+	first_play();
+	start1v1();
 	preencher();
 }
 
@@ -252,7 +259,9 @@ function click_cell(linha,coluna){
 			if(point1>point2){
 				document.getElementById('alerta').innerHTML="BRANCO GANHOU";
 			}
-			else document.getElementById('alerta').innerHTML="PRETO GANHOU";
+			else if(points1<points2) document.getElementById('alerta').innerHTML="PRETO GANHOU";
+			else document.getElementById('alerta').innerHTML="EMPATE";
+			document.getElementById('desiste').style.display = "none";
 			document.getElementById('fim-jogo').style.display = "block";
 		}
 	}
@@ -278,7 +287,9 @@ function click_cell(linha,coluna){
 			if(point1>point2){
 				document.getElementById('alerta').innerHTML="BRANCO GANHOU";
 			}
-			else document.getElementById('alerta').innerHTML="PRETO GANHOU";
+			else if(point1<point2) document.getElementById('alerta').innerHTML="PRETO GANHOU";
+			else document.getElementById('alerta').innerHTML="EMPATE";
+			document.getElementById('desiste').style.display = "none";
 			document.getElementById('fim-jogo').style.display = "block";
 		}
 	}
@@ -415,6 +426,45 @@ function board_cheio(){
 	return true;
 }
 
+
+function desistir(){
+
+	if(player==1){
+		tab = [
+		  [2, 2, 2, 2, 2, 2, 2, 2],
+		  [2, 2, 2, 2, 2, 2, 2, 2],
+		  [2, 2, 2, 2, 2, 2, 2, 2],
+		  [2, 2, 2, 2, 2, 2, 2, 2],
+		  [2, 2, 2, 2, 2, 2, 2, 2],
+		  [2, 2, 2, 2, 2, 2, 2, 2],
+		  [2, 2, 2, 2, 2, 2, 2, 2],
+		  [2, 2, 2, 2, 2, 2, 2, 2]
+		];
+		preencher();
+		pontuacao();
+		document.getElementById('turno').innerHTML="White GIVES UP";
+	}
+
+	else {
+		tab = [
+		  [1, 1, 1, 1, 1, 1, 1, 1],
+		  [1, 1, 1, 1, 1, 1, 1, 1],
+		  [1, 1, 1, 1, 1, 1, 1, 1],
+		  [1, 1, 1, 1, 1, 1, 1, 1],
+		  [1, 1, 1, 1, 1, 1, 1, 1],
+		  [1, 1, 1, 1, 1, 1, 1, 1],
+		  [1, 1, 1, 1, 1, 1, 1, 1],
+		  [1, 1, 1, 1, 1, 1, 1, 1]
+		];
+		preencher();
+		pontuacao();
+		document.getElementById('turno').innerHTML="BLACK GIVES UP";
+	}
+
+	//document.getElementById('tabuleiro').style.display = "none";
+	document.getElementById('fim-jogo').style.display = "block";
+
+}
 
 
 function pontuacao(){
