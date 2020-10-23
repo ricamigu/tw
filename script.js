@@ -242,22 +242,8 @@ function click_cell(linha,coluna){
 		}
 
 		else window.alert("Não pode jogar nessa posição");
-	}
 
-	else if(bot==1 || bot==2){
-
-		if(pode_jogar(linha,coluna)){
-			tab[linha][coluna] = player;
-
-			//bot
-			bot_easy();
-			//tab[0][0] = bot;
-
-		}
-		else window.alert("Não pode jogar nessa posição");
-	}
-
-	preencher();
+		preencher();
 
 		passar();
 			
@@ -269,6 +255,35 @@ function click_cell(linha,coluna){
 			else document.getElementById('alerta').innerHTML="PRETO GANHOU";
 			document.getElementById('fim-jogo').style.display = "block";
 		}
+	}
+
+	else if(bot!=0){
+
+		if(pode_jogar(linha,coluna)){
+			tab[linha][coluna] = player;
+
+			//bot
+			bot_easy();
+			//tab[0][0] = bot;
+
+		}
+		else window.alert("Não pode jogar nessa posição");
+
+		preencher();
+
+		passar_bot();
+			
+		if(end_game_bot()){
+
+			if(point1>point2){
+				document.getElementById('alerta').innerHTML="BRANCO GANHOU";
+			}
+			else document.getElementById('alerta').innerHTML="PRETO GANHOU";
+			document.getElementById('fim-jogo').style.display = "block";
+		}
+	}
+
+
 }
 
 function preencher() {
@@ -318,6 +333,28 @@ function passar(){
 	return true;
 }
 
+function passar_bot(){
+
+	if (board_cheio()) return true;
+
+	for(var l=0; l<8; l++){
+		for(var c=0; c<8; c++){
+			if(pode_jogar_bool(l,c)) return false;
+		}
+	}
+
+	if(player==1) {
+			document.getElementById('turno').innerHTML="Black Turn";
+			document.getElementById('alerta').innerHTML="BRANCO PASSOU A JOGADA";
+		}
+		else {
+			document.getElementById('turno').innerHTML="White Turn";
+			document.getElementById('alerta').innerHTML="PRETO PASSOU A JOGADA";
+		}
+
+	return true;
+}
+
 function end_game(){
 
 	if (board_cheio()) {
@@ -327,6 +364,23 @@ function end_game(){
 
 	var bool1 = passar();
 	var bool2 = passar();
+
+	if(bool1 && bool2){
+		return true;
+	}
+
+	return false;
+}
+
+function end_game_bot(){
+
+	if (board_cheio()) {
+		return true;
+	}
+
+
+	var bool1 = passar_bot();
+	var bool2 = passar_bot();
 
 	if(bool1 && bool2){
 		return true;
