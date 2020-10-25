@@ -185,13 +185,7 @@ function novo_jogo(){
 
 function dif_easy(){
 	difcl = 1;
-	document.getElementById('area_de_jogo').style.display = 'block';
-	document.getElementById('startgame').style.display = 'none';
-	document.getElementById('cor_peca').style.display = 'none';
-	document.getElementById('dificuldade').style.display = 'none';
-	document.getElementById('menu-btn').style.display = 'block';
-	document.getElementById('after-login').style.display = 'none';
-	document.getElementById('pontuacao').style.display = 'block';
+	dif();
 	first_play();
 	start1v1();
 	preencher();
@@ -199,13 +193,7 @@ function dif_easy(){
 
 function dif_medium(){
 	difcl = 2;
-	document.getElementById('area_de_jogo').style.display = 'block';
-	document.getElementById('startgame').style.display = 'none';
-	document.getElementById('cor_peca').style.display = 'none';
-	document.getElementById('dificuldade').style.display = 'none';
-	document.getElementById('menu-btn').style.display = 'block';
-	document.getElementById('after-login').style.display = 'none';
-	document.getElementById('pontuacao').style.display = 'block';
+	dif();
 	first_play();
 	start1v1();
 	preencher();
@@ -213,6 +201,13 @@ function dif_medium(){
 
 function dif_hard(){
 	difcl = 3;
+	dif();
+	first_play();
+	start1v1();
+	preencher();
+}
+
+function dif(){
 	document.getElementById('area_de_jogo').style.display = 'block';
 	document.getElementById('startgame').style.display = 'none';
 	document.getElementById('cor_peca').style.display = 'none';
@@ -220,9 +215,6 @@ function dif_hard(){
 	document.getElementById('menu-btn').style.display = 'block';
 	document.getElementById('after-login').style.display = 'none';
 	document.getElementById('pontuacao').style.display = 'block';
-	first_play();
-	start1v1();
-	preencher();
 }
 
 function first_play(){
