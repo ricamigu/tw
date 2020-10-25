@@ -31,7 +31,16 @@ var tab = [
   [1, 1, 1, 1, 1, 1, 1, 1]
 ];*/
 
-
+var pesos = [
+	[ 120, -20,  20,   5,   5,  20, -20, 120 ],
+	[ -20, -40,  -5,  -5,  -5,  -5, -40, -20 ],
+	[  20,  -5,  15,   3,   3,  15,  -5,  20 ],
+	[  5,   -5,   3,   3,   3,   3,  -5,   5 ],
+	[  5,   -5,   3,   3,   3,   3,  -5,   5 ],
+	[  20,  -5,  15,   3,   3,  15,  -5,  20 ],
+	[ -20, -40,  -5,  -5,  -5,  -5, -40, -20 ],
+    [ 120, -20,  20,   5,   5,  20, -20, 120 ],
+];
 
 
 function login() {
@@ -266,7 +275,7 @@ function click_cell(linha,coluna){
 		}
 	}
 
-	else if(bot!=0){
+	else if(bot!=0 && difcl==1){
 
 		if(pode_jogar(linha,coluna)){
 			tab[linha][coluna] = player;
@@ -294,6 +303,62 @@ function click_cell(linha,coluna){
 		}
 	}
 
+	else if(bot!=0 && difcl==2){
+
+		if(pode_jogar(linha,coluna)){
+			tab[linha][coluna] = player;
+
+			//bot
+			bot_med();
+			//tab[0][0] = bot;
+
+		}
+		else window.alert("Não pode jogar nessa posição");
+
+		preencher();
+
+		passar_bot();
+			
+		if(end_game_bot()){
+
+			if(point1>point2){
+				document.getElementById('alerta').innerHTML="BRANCO GANHOU";
+			}
+			else if(point1<point2) document.getElementById('alerta').innerHTML="PRETO GANHOU";
+			else document.getElementById('alerta').innerHTML="EMPATE";
+			document.getElementById('desiste').style.display = "none";
+			document.getElementById('fim-jogo').style.display = "block";
+		}
+	}
+
+	else if(bot!=0 && difcl==3){
+
+		if(pode_jogar(linha,coluna)){
+			tab[linha][coluna] = player;
+
+			//bot
+			bot_hard();
+			//tab[0][0] = bot;
+
+		}
+			//tab[0][0] = bot;
+		//else window.alert("Não pode jogar nessa posição");
+
+		preencher();
+
+		passar_bot();
+			
+		if(end_game_bot()){
+
+			if(point1>point2){
+				document.getElementById('alerta').innerHTML="BRANCO GANHOU";
+			}
+			else if(point1<point2) document.getElementById('alerta').innerHTML="PRETO GANHOU";
+			else document.getElementById('alerta').innerHTML="EMPATE";
+			document.getElementById('desiste').style.display = "none";
+			document.getElementById('fim-jogo').style.display = "block";
+		}
+	}
 
 }
 
@@ -860,8 +925,37 @@ function alterar_did_bool(linha,coluna){
 
 // ------------------------------------------------------------------------ AI -----------------------------------------------------------------------
 
-
 function bot_easy(){
+
+	var check=false;
+	var li;
+	var col;
+
+	for(var l=0; l<8; l++){
+		for(var c=0; c<8; c++){
+			if(pode_jogar_easy(l,c)) check = true;
+		}
+	}
+
+	li = Math.floor((Math.random() * 7) + 0);
+	col = Math.floor((Math.random() * 7) + 0);
+
+	if(check){
+		while(!pode_jogar_easy(li,col)){
+			li = Math.floor((Math.random() * 8) + 0);
+			col = Math.floor((Math.random() * 8) + 0);
+		}
+
+		alterar_pecas_bot(li,col);
+	}
+
+	else {
+		document.getElementById('alerta').innerHTML = "AI PASSOU A JOGADA";
+	}
+}
+
+
+function bot_med(){
 
 	var max=0;
 	var lmax=0;
@@ -880,6 +974,35 @@ function bot_easy(){
 	}
 
 	if(max>0){
+		//tab[lmax][cmax]= bot;
+		alterar_pecas_bot(lmax,cmax);
+
+	}
+	else {
+		document.getElementById('alerta').innerHTML = "AI PASSOU A JOGADA";
+	}
+
+}
+
+function bot_hard(){
+
+	var max=-120;
+	var lmax=0;
+	var cmax=0;
+	var cur=0;
+
+	for(var l=0; l<8; l++){
+		for(var c=0; c<8; c++){
+			cur = pode_jogar_easy(l,c);
+			if(cur>0 && cur+pesos[l][c]>max){
+				lmax=l;
+				cmax=c;
+				max=cur;
+			}
+		}
+	}
+
+	if(max>-120){
 		//tab[lmax][cmax]= bot;
 		alterar_pecas_bot(lmax,cmax);
 
