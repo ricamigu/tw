@@ -333,16 +333,17 @@ function click_cell(linha,coluna){
 
 	else if(bot!=0 && difcl==3){
 
-		if(pode_jogar(linha,coluna)){
-			tab[linha][coluna] = player;
+			if(pode_jogar(linha,coluna)){
+				tab[linha][coluna] = player;
 
 			//bot
 			bot_hard();
 			//tab[0][0] = bot;
 
 		}
+
 			//tab[0][0] = bot;
-		//else window.alert("Não pode jogar nessa posição");
+		else window.alert("Não pode jogar nessa posição");
 
 		preencher();
 
