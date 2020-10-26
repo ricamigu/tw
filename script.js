@@ -60,6 +60,7 @@ function login() {
 	//document.getElementById('configurações').style.display = 'block';
 	document.getElementById('regras').style.display = 'none';
 	document.getElementById('cor_peca').style.display = 'none';
+	pontuacoes();
 	   /*
 	  if(user === "" || pass === "")
 	    window.alert("Preencha os campos");

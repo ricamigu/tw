@@ -105,7 +105,7 @@ body {
 
 
 #startgame {
-	margin-left: 30%;
+	margin-left: 29%;
 	display:block;
 	margin-top: 15%;
 	vertical-align: center;
@@ -179,7 +179,7 @@ body {
 }
 
 #cor_peca {
-	margin-left: 30%;
+	margin-left: 29%;
 	display:none;
 	margin-top: 15%;
 	vertical-align: center;
@@ -198,7 +198,7 @@ body {
 }
 
 #cor_peca1 {
-	margin-left: 30%;
+	margin-left: 29%;
 	display:none;
 	margin-top: 15%;
 	vertical-align: center;
@@ -218,7 +218,7 @@ body {
 
 
 #dificuldade {
-	margin-left: 30%;
+	margin-left: 29%;
 	display:none;
 	margin-top: 15%;
 	vertical-align: center;
@@ -334,6 +334,13 @@ body {
   background-color: #DED197;
 }
 
+
+#creditos {
+	text-align: center;
+	font-size: 10px;
+
+}
+
 @media only screen and (min-width: 1800px){
 
 	#tabuleiro {
@@ -342,6 +349,22 @@ body {
 
 	#classificacoes table {
 		width: 10%;
+	}
+
+	#startgame {
+		margin-left: 33%;
+	}
+
+	#cor_peca {
+		margin-left: 33%;
+	}
+
+	#cor_peca1 {
+		margin-left: 33%;
+	}
+
+	#dificuldade {
+		margin-left: 33%;
 	}
 }
 
