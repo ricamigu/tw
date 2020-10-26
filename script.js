@@ -76,6 +76,7 @@ function home(){
 	document.getElementById('tabuleiro').style.display = 'block';
 	document.getElementById('classificacoes').style.display = 'none';
 	document.getElementById('info').style.display = "none";
+	document.getElementById('fim-jogo').style.display = "block";
 
 }
 
@@ -89,6 +90,7 @@ function regras(){
 	document.getElementById('tabuleiro').style.display = 'none';
 	document.getElementById('pontuacao').style.display = 'none';
 	document.getElementById('info').style.display = "none";
+	document.getElementById('fim-jogo').style.display = "none";
 
 }
 
@@ -1445,11 +1447,11 @@ function pontuacoes(){
     }
 
     var line1 = document.createElement("tr");
-    var col1 = document.createElement("th"); col1.innerHTML = "Nome";
-    var col2 = document.createElement("th"); col2.innerHTML = "Pontos";
-    line1.appendChild(col1);
-    line1.appendChild(col2);
-    table.appendChild(line1);
+    //var col1 = document.createElement("th"); col1.innerHTML = "Nome";
+    //var col2 = document.createElement("th"); col2.innerHTML = "Pontos";
+    //line1.appendChild(col1);
+    //line1.appendChild(col2);
+    //table.appendChild(line1);
 
     for(var i=0; i<pontos1.length; i++){
         var lineR = document.createElement("tr");
