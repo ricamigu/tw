@@ -1447,11 +1447,11 @@ function pontuacoes(){
     }
 
     var line1 = document.createElement("tr");
-    //var col1 = document.createElement("th"); col1.innerHTML = "Nome";
-    //var col2 = document.createElement("th"); col2.innerHTML = "Pontos";
-    //line1.appendChild(col1);
-    //line1.appendChild(col2);
-    //table.appendChild(line1);
+    var col1 = document.createElement("th"); col1.innerHTML = "Nome";
+    var col2 = document.createElement("th"); col2.innerHTML = "Pontos";
+    line1.appendChild(col1);
+    line1.appendChild(col2);
+    table.appendChild(line1);
 
     for(var i=0; i<pontos1.length; i++){
         var lineR = document.createElement("tr");
