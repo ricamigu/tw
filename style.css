@@ -79,8 +79,8 @@ body {
 }
 
 .piece {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     border-width: 0px;
     border-style: solid;
     border-color: grey;
@@ -105,7 +105,7 @@ body {
 
 
 #startgame {
-	margin-left: 33%;
+	margin-left: 30%;
 	display:block;
 	margin-top: 15%;
 	vertical-align: center;
@@ -138,6 +138,20 @@ body {
     margin: 5px;
 }
 
+.button2 {
+    display: inline-block;
+    border-radius: 25px;
+    background-color: #B39F57;
+    border: 2px solid black;
+    color: black;
+    text-align: center;
+    font-size: 20px;
+    padding: 20px;
+    width: 150px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+}
 
 .button1 span {
     cursor: pointer;
@@ -145,7 +159,6 @@ body {
     position: relative;
     transition: 0.5s;
 }
-
 
 .button1 span:after {
   content: '\00bb';
@@ -166,7 +179,7 @@ body {
 }
 
 #cor_peca {
-	margin-left: 33%;
+	margin-left: 30%;
 	display:none;
 	margin-top: 15%;
 	vertical-align: center;
@@ -185,7 +198,7 @@ body {
 }
 
 #cor_peca1 {
-	margin-left: 33%;
+	margin-left: 30%;
 	display:none;
 	margin-top: 15%;
 	vertical-align: center;
@@ -205,7 +218,7 @@ body {
 
 
 #dificuldade {
-	margin-left: 33%;
+	margin-left: 30%;
 	display:none;
 	margin-top: 15%;
 	vertical-align: center;
@@ -225,17 +238,17 @@ body {
 	text-align: center;
 	display:none;
 	font-weight: bold;
-	font-size: 40px;
+	font-size: 30px;
 }
 
 #tabuleiro {
 	background-color: green;
-	margin-left: 35%;
+	margin-left: 34%;
 	margin-top: 3%;
 	text-align: center;
 	border: 5px solid black;
-	height: 620px;
-	width: 620px;
+	height: 460px;
+	width: 460px;
 
 }
 
@@ -243,8 +256,8 @@ body {
     display: table-cell;
     margin-left: auto;
     margin-right: auto;
-    width: 64px;
-    height: 64px;
+    width: 35px;
+    height: 35px;
     border: 3px solid black;
     padding: 4px;
 }
@@ -261,11 +274,11 @@ body {
 	border-radius: 25px;
 	background-color: #DED197;
 	text-align: center;
-  	width: 250px;
-  	height: 600px;  
+  	width: 200px;
+  	height: 500px;  
   	float: left;
   	position: absolute;
-  	font-size: 30px;
+  	font-size: 20px;
 }
 
 #pontuacao p {
@@ -281,13 +294,30 @@ body {
 	border-radius: 25px;
 	background-color: #DED197;
 	text-align: center;
-  	width: 250px;
-  	height: 600px;  
+  	width: 200px;
+  	height: 500px;  
   	float: left;
   	position: absolute;
-  	font-size: 30px;
+  	font-size: 20px;
 }
 
 #fim-jogo p {
 	font-weight: bold;
 }
+
+#classificacoes {
+
+	display: none;
+
+}
+
+
+
+
+@media only screen and (min-width: 1800px){
+
+	#tabuleiro {
+	margin-left: 37%;
+	}
+}
+

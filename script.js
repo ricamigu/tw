@@ -5,7 +5,8 @@ var point2=0;
 var bot=0;
 var jogada=0;
 
-
+var pontos1 = [];
+var pontos2 = [];
 
 
 var tab = [
@@ -72,6 +73,9 @@ function home(){
 	//document.getElementById('tabuleiro').style.display = 'block';
 	document.getElementById('area_de_jogo').style.display = 'block';
 	document.getElementById('pontuacao').style.display = 'block';
+	document.getElementById('tabuleiro').style.display = 'block';
+	document.getElementById('classificacoes').style.display = 'none';
+	document.getElementById('info').style.display = "none";
 
 }
 
@@ -84,14 +88,23 @@ function regras(){
 	document.getElementById('area_de_jogo').style.display = 'none';
 	document.getElementById('tabuleiro').style.display = 'none';
 	document.getElementById('pontuacao').style.display = 'none';
+	document.getElementById('info').style.display = "none";
 
 }
 
-/*
-function classficacoes(){
 
+function classificacao(){
+	document.getElementById('regras').style.display = 'none';
+	document.getElementById('startgame').style.display = 'none';
+	document.getElementById('cor_peca').style.display = 'none';
+	document.getElementById('area_de_jogo').style.display = 'none';
+	document.getElementById('tabuleiro').style.display = 'none';
+	document.getElementById('pontuacao').style.display = 'none';
+	document.getElementById('classificacoes').style.display = 'block';
+	document.getElementById('info').style.display = "block";
+	document.getElementById('fim-jogo').style.display = "none";
 
-}*/
+}
 
 function logout(){
 	document.getElementById('pag_inicial').style.display = 'block';
@@ -107,6 +120,7 @@ function logout(){
 	document.getElementById("score1").innerHTML = point1;
 	document.getElementById("score2").innerHTML = point2;
 	document.getElementById('fim-jogo').style.display = 'none';
+	document.getElementById('info').style.display = "none";
 	clean_board(); 	
 }
 
@@ -144,6 +158,9 @@ function black1(){
 	//document.getElementById('startgame').style.display = 'none';
 	//document.getElementById('dificuldade').style.display = 'block';
 	//document.getElementById('configurações').style.display = 'none';
+	document.getElementById('dificuldade').style.display = 'block';
+	document.getElementById('cor_peca1').style.display = 'none';
+	bot=0;
 	start1v1();
 }
 
@@ -151,11 +168,15 @@ function white1(){
 	//player = 1;
 	//document.getElementById('configurações').style.display = 'none';
 	//document.getElementById('dificuldade').style.display = 'block';
+	document.getElementById('dificuldade').style.display = 'block';
+	document.getElementById('cor_peca1').style.display = 'none';
+	bot=0;
 	start1v1();
 }
 
 
 function start1v1(){
+
 	document.getElementById('area_de_jogo').style.display = 'block';
 	document.getElementById('startgame').style.display = 'none';
 	document.getElementById('cor_peca').style.display = 'block';
@@ -163,12 +184,14 @@ function start1v1(){
 	document.getElementById('menu-btn').style.display = 'block';
 	document.getElementById('after-login').style.display = 'none';
 	document.getElementById('pontuacao').style.display = 'block';
+	document.getElementById('tabuleiro').style.display = "block";
 	preencher();
 }
 
 function startvs() {
   	document.getElementById('startgame').style.display = 'none';
  	document.getElementById('cor_peca1').style.display = 'block';
+ 	document.getElementById('cor_peca').style.display = 'none';
 	
 }
 
@@ -179,15 +202,17 @@ function novo_jogo(){
 	document.getElementById("score1").innerHTML = point1;
 	document.getElementById("score2").innerHTML = point2;
 	document.getElementById('tabuleiro').style.display = "block";
+	document.getElementById('pontuacao').style.display = "block";
+	document.getElementById('desiste').style.display = "block";
 	preencher();
 }
 
 
 function dif_easy(){
-	difcl = 1;
 	dif();
 	first_play();
 	start1v1();
+	difcl = 1;
 	preencher();
 }
 
@@ -196,6 +221,7 @@ function dif_medium(){
 	dif();
 	first_play();
 	start1v1();
+	difcl = 2;
 	preencher();
 }
 
@@ -226,6 +252,7 @@ function first_play(){
 			jogada=bot;
 			preencher();
 		}
+		document.getElementById('cor_peca').style.display = 'none';
 	}
 }
 
@@ -257,6 +284,10 @@ function click_cell(linha,coluna){
 			
 		if(end_game()){
 
+			pontos1.push(point1);
+			pontos2.push(point2);
+			pontuacoes();
+
 			if(point1>point2){
 				document.getElementById('alerta').innerHTML="BRANCO GANHOU";
 			}
@@ -264,6 +295,7 @@ function click_cell(linha,coluna){
 			else document.getElementById('alerta').innerHTML="EMPATE";
 			document.getElementById('desiste').style.display = "none";
 			document.getElementById('fim-jogo').style.display = "block";
+
 		}
 	}
 
@@ -285,13 +317,19 @@ function click_cell(linha,coluna){
 			
 		if(end_game_bot()){
 
+			pontos1.push(point1);
+			pontos2.push(point2);
+			pontuacoes();
+
 			if(point1>point2){
 				document.getElementById('alerta').innerHTML="BRANCO GANHOU";
 			}
 			else if(point1<point2) document.getElementById('alerta').innerHTML="PRETO GANHOU";
 			else document.getElementById('alerta').innerHTML="EMPATE";
+
 			document.getElementById('desiste').style.display = "none";
 			document.getElementById('fim-jogo').style.display = "block";
+
 		}
 	}
 
@@ -313,6 +351,10 @@ function click_cell(linha,coluna){
 			
 		if(end_game_bot()){
 
+			pontos1.push(point1);
+			pontos2.push(point2);
+			pontuacoes();
+
 			if(point1>point2){
 				document.getElementById('alerta').innerHTML="BRANCO GANHOU";
 			}
@@ -321,6 +363,7 @@ function click_cell(linha,coluna){
 			document.getElementById('desiste').style.display = "none";
 			document.getElementById('fim-jogo').style.display = "block";
 		}
+
 	}
 
 	else if(bot!=0 && difcl==3){
@@ -343,6 +386,10 @@ function click_cell(linha,coluna){
 			
 		if(end_game_bot()){
 
+			pontos1.push(point1);
+			pontos2.push(point2);
+			pontuacoes();
+
 			if(point1>point2){
 				document.getElementById('alerta').innerHTML="BRANCO GANHOU";
 			}
@@ -350,6 +397,7 @@ function click_cell(linha,coluna){
 			else document.getElementById('alerta').innerHTML="EMPATE";
 			document.getElementById('desiste').style.display = "none";
 			document.getElementById('fim-jogo').style.display = "block";
+
 		}
 	}
 
@@ -375,6 +423,7 @@ function preencher() {
 	if(player==2) document.getElementById('turno').innerHTML="Black Turn";
 
 	document.getElementById('alerta').innerHTML="";
+	//pontuacoes();
 }
 
 
@@ -521,6 +570,9 @@ function desistir(){
 
 	//document.getElementById('tabuleiro').style.display = "none";
 	document.getElementById('fim-jogo').style.display = "block";
+	pontos1.push(point1);
+	pontos2.push(point2);
+	pontuacoes();
 
 }
 
@@ -1383,3 +1435,68 @@ function trocar_die_bot(linha,coluna,k){
 	}
 }
 
+function pontuacoes(){
+	pontos1.sort();
+	pontos2.sort();
+
+    var table = document.getElementById("info");
+    while(table.firstChild){
+        table.removeChild(table.firstChild);
+    }
+
+    var line1 = document.createElement("tr");
+    var col1 = document.createElement("th"); col1.innerHTML = "Nome";
+    var col2 = document.createElement("th"); col2.innerHTML = "Pontos";
+    line1.appendChild(col1);
+    line1.appendChild(col2);
+    table.appendChild(line1);
+
+    for(var i=0; i<pontos1.length; i++){
+        var lineR = document.createElement("tr");
+        var colR1 = document.createElement("th");
+        var colR2 = document.createElement("th");
+        var lineR2 = document.createElement("tr");
+        var colR3 = document.createElement("th");
+        var colR4 = document.createElement("th");
+
+        colR1.innerHTML = "White";
+        colR2.innerHTML = pontos1[i];
+        colR3.innerHTML = "Black";
+        colR4.innerHTML = pontos2[i];
+
+        lineR.appendChild(colR1);
+        lineR.appendChild(colR2);
+        lineR2.appendChild(colR3);
+        lineR2.appendChild(colR4);
+        table.appendChild(lineR);
+        table.appendChild(lineR2);
+    }
+    sortTable();
+}
+
+function sortTable() {
+
+  var table;
+  var linha;
+  var i, x, y;
+  var troca = true;
+  var deve_trocar;
+  table = document.getElementById("info");
+
+  while (troca) {
+ 
+    troca = false;
+    linha = table.rows;
+
+    for (i = 1; i < (linha.length - 1); i++) {
+      deve_trocar = false;
+      x = linha[i].getElementsByTagName("th")[1];
+      y = linha[i + 1].getElementsByTagName("th")[1];
+
+      if (Number(x.innerHTML) < Number(y.innerHTML)) {
+        linha[i].parentNode.insertBefore(linha[i + 1], linha[i]);
+      	troca = true;
+      }
+    }
+  }
+}
