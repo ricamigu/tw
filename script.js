@@ -5,8 +5,8 @@ var point2=0;
 var bot=0;
 var jogada=0;
 
-var pontos1 = [];
-var pontos2 = [];
+var vitorias1=0;
+var vitorias2=0;
 
 
 var tab = [
@@ -42,6 +42,10 @@ var pesos = [
 	[ -20, -40,  -5,  -5,  -5,  -5, -40, -20 ],
     [ 120, -20,  20,   5,   5,  20, -20, 120 ],
 ];
+
+
+window.onload = function () { create_table() }
+
 
 
 function login() {
@@ -258,6 +262,34 @@ function first_play(){
 	}
 }
 
+function create_table(){
+
+	const tab = document.getElementById("tabuleiro");
+
+	for(var i=0; i<8; i++){
+		var row = document.createElement("div");
+		row.className = "row";
+		row.setAttribute("style","display: tabble-cell;");
+
+		for(var j=0; j<8; j++){
+			var cell = document.createElement("div");
+			var piece = document.createElement("div");
+			piece.className = "piece";
+			cell.className = "cell";
+			cell.setAttribute("id","cell"+i+j);
+			cell.setAttribute("onclick","click_cell("+i+","+j+");");
+			cell.style.backgroundColor = "green";
+			cell.style.width = "35px";
+			cell.style.height = "35px";
+			cell.style.border = "3px solid black";
+			cell.padding = "4px";
+			cell.appendChild(piece);
+			row.appendChild(cell);
+		}
+		tab.appendChild(row);
+	}
+}
+
 function click_cell(linha,coluna){
 
 	if(bot==0){
@@ -286,17 +318,15 @@ function click_cell(linha,coluna){
 			
 		if(end_game()){
 
-			pontos1.push(point1);
-			pontos2.push(point2);
-			pontuacoes();
-
 			if(point1>point2){
 				document.getElementById('alerta').innerHTML="BRANCO GANHOU";
+				vitorias1++;
 			}
-			else if(points1<points2) document.getElementById('alerta').innerHTML="PRETO GANHOU";
+			else if(points1<points2) { document.getElementById('alerta').innerHTML="PRETO GANHOU"; vitorias2++; }
 			else document.getElementById('alerta').innerHTML="EMPATE";
 			document.getElementById('desiste').style.display = "none";
 			document.getElementById('fim-jogo').style.display = "block";
+			pontuacoes();
 
 		}
 	}
@@ -319,18 +349,17 @@ function click_cell(linha,coluna){
 			
 		if(end_game_bot()){
 
-			pontos1.push(point1);
-			pontos2.push(point2);
-			pontuacoes();
 
 			if(point1>point2){
 				document.getElementById('alerta').innerHTML="BRANCO GANHOU";
+				vitorias1++;
 			}
-			else if(point1<point2) document.getElementById('alerta').innerHTML="PRETO GANHOU";
+			else if(point1<point2) {document.getElementById('alerta').innerHTML="PRETO GANHOU"; vitorias2++;}
 			else document.getElementById('alerta').innerHTML="EMPATE";
 
 			document.getElementById('desiste').style.display = "none";
 			document.getElementById('fim-jogo').style.display = "block";
+			pontuacoes();
 
 		}
 	}
@@ -353,17 +382,16 @@ function click_cell(linha,coluna){
 			
 		if(end_game_bot()){
 
-			pontos1.push(point1);
-			pontos2.push(point2);
-			pontuacoes();
 
 			if(point1>point2){
+				vitorias1++;
 				document.getElementById('alerta').innerHTML="BRANCO GANHOU";
 			}
-			else if(point1<point2) document.getElementById('alerta').innerHTML="PRETO GANHOU";
+			else if(point1<point2) { vitorias2++; document.getElementById('alerta').innerHTML="PRETO GANHOU";}
 			else document.getElementById('alerta').innerHTML="EMPATE";
 			document.getElementById('desiste').style.display = "none";
 			document.getElementById('fim-jogo').style.display = "block";
+			pontuacoes();
 		}
 
 	}
@@ -388,17 +416,16 @@ function click_cell(linha,coluna){
 			
 		if(end_game_bot()){
 
-			pontos1.push(point1);
-			pontos2.push(point2);
-			pontuacoes();
-
 			if(point1>point2){
+				vitorias1++;
 				document.getElementById('alerta').innerHTML="BRANCO GANHOU";
 			}
-			else if(point1<point2) document.getElementById('alerta').innerHTML="PRETO GANHOU";
+			else if(point1<point2) { vitorias2++; document.getElementById('alerta').innerHTML="PRETO GANHOU";}
 			else document.getElementById('alerta').innerHTML="EMPATE";
 			document.getElementById('desiste').style.display = "none";
 			document.getElementById('fim-jogo').style.display = "block";
+
+			pontuacoes();
 
 		}
 	}
@@ -552,6 +579,7 @@ function desistir(){
 		preencher();
 		pontuacao();
 		document.getElementById('turno').innerHTML="White GIVES UP";
+		vitorias2++;
 	}
 
 	else {
@@ -568,12 +596,13 @@ function desistir(){
 		preencher();
 		pontuacao();
 		document.getElementById('turno').innerHTML="BLACK GIVES UP";
+		vitorias1++;
 	}
 
 	//document.getElementById('tabuleiro').style.display = "none";
 	document.getElementById('fim-jogo').style.display = "block";
-	pontos1.push(point1);
-	pontos2.push(point2);
+	document.getElementById('desiste').style.display = "none";
+
 	pontuacoes();
 
 }
@@ -1438,8 +1467,6 @@ function trocar_die_bot(linha,coluna,k){
 }
 
 function pontuacoes(){
-	pontos1.sort();
-	pontos2.sort();
 
     var table = document.getElementById("info");
     while(table.firstChild){
@@ -1448,12 +1475,11 @@ function pontuacoes(){
 
     var line1 = document.createElement("tr");
     var col1 = document.createElement("th"); col1.innerHTML = "Nome";
-    var col2 = document.createElement("th"); col2.innerHTML = "Pontos";
+    var col2 = document.createElement("th"); col2.innerHTML = "Vitórias";
     line1.appendChild(col1);
     line1.appendChild(col2);
     table.appendChild(line1);
 
-    for(var i=0; i<pontos1.length; i++){
         var lineR = document.createElement("tr");
         var colR1 = document.createElement("th");
         var colR2 = document.createElement("th");
@@ -1462,9 +1488,9 @@ function pontuacoes(){
         var colR4 = document.createElement("th");
 
         colR1.innerHTML = "White";
-        colR2.innerHTML = pontos1[i];
+        colR2.innerHTML = vitorias1;
         colR3.innerHTML = "Black";
-        colR4.innerHTML = pontos2[i];
+        colR4.innerHTML = vitorias2;
 
         lineR.appendChild(colR1);
         lineR.appendChild(colR2);
@@ -1472,7 +1498,6 @@ function pontuacoes(){
         lineR2.appendChild(colR4);
         table.appendChild(lineR);
         table.appendChild(lineR2);
-    }
     sortTable();
 }
 
