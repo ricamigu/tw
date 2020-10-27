@@ -315,7 +315,7 @@ function click_cell(linha,coluna){
 
 		preencher();
 
-		passar();
+		//passar();
 			
 		if(end_game()){
 
@@ -323,7 +323,7 @@ function click_cell(linha,coluna){
 				document.getElementById('alerta').innerHTML="BRANCO GANHOU";
 				vitorias1++;
 			}
-			else if(points1<points2) { document.getElementById('alerta').innerHTML="PRETO GANHOU"; vitorias2++; }
+			else if(point1<point2) { document.getElementById('alerta').innerHTML="PRETO GANHOU"; vitorias2++; }
 			else document.getElementById('alerta').innerHTML="EMPATE";
 			document.getElementById('desiste').style.display = "none";
 			document.getElementById('fim-jogo').style.display = "block";
@@ -508,6 +508,9 @@ function end_game(){
 	if (board_cheio()) {
 		return true;
 	}
+
+
+	if(point1+point2 == 64) return true;
 
 
 	var bool1 = passar();
