@@ -43,10 +43,7 @@ var pesos = [
     [ 120, -20,  20,   5,   5,  20, -20, 120 ],
 ];
 
-
 window.onload = function () { create_table() }
-
-
 
 function login() {
 
@@ -99,7 +96,6 @@ function regras(){
 
 }
 
-
 function classificacao(){
 	document.getElementById('regras').style.display = 'none';
 	document.getElementById('startgame').style.display = 'none';
@@ -110,7 +106,6 @@ function classificacao(){
 	document.getElementById('classificacoes').style.display = 'block';
 	document.getElementById('info').style.display = "block";
 	document.getElementById('fim-jogo').style.display = "none";
-
 }
 
 function logout(){
@@ -311,20 +306,20 @@ function click_cell(linha,coluna){
 			}
 		}
 
-		else window.alert("Não pode jogar nessa posição");
+		else window.alert("You can't play in that position");
 
 		preencher();
 
-		//passar();
+		passar();
 			
 		if(end_game()){
 
 			if(point1>point2){
-				document.getElementById('alerta').innerHTML="BRANCO GANHOU";
+				document.getElementById('alerta').innerHTML="WHITE WON";
 				vitorias1++;
 			}
-			else if(point1<point2) { document.getElementById('alerta').innerHTML="PRETO GANHOU"; vitorias2++; }
-			else document.getElementById('alerta').innerHTML="EMPATE";
+			else if(point1<point2) { document.getElementById('alerta').innerHTML="BLACK WON"; vitorias2++; }
+			else document.getElementById('alerta').innerHTML="Draq";
 			document.getElementById('desiste').style.display = "none";
 			document.getElementById('fim-jogo').style.display = "block";
 			pontuacoes();
@@ -508,9 +503,6 @@ function end_game(){
 	if (board_cheio()) {
 		return true;
 	}
-
-
-	if(point1+point2 == 64) return true;
 
 
 	var bool1 = passar();
@@ -1030,7 +1022,7 @@ function bot_easy(){
 	}
 
 	else {
-		document.getElementById('alerta').innerHTML = "AI PASSOU A JOGADA";
+		document.getElementById('alerta').innerHTML = "IA has skipped his turn";
 	}
 }
 
@@ -1059,7 +1051,7 @@ function bot_med(){
 
 	}
 	else {
-		document.getElementById('alerta').innerHTML = "AI PASSOU A JOGADA";
+		document.getElementById('alerta').innerHTML = "IA has skipped his turn";
 	}
 
 }
@@ -1088,7 +1080,7 @@ function bot_hard(){
 
 	}
 	else {
-		document.getElementById('alerta').innerHTML = "AI PASSOU A JOGADA";
+		document.getElementById('alerta').innerHTML = "IA has skipped his turn";
 	}
 
 }
@@ -1478,8 +1470,8 @@ function pontuacoes(){
     }
 
     var line1 = document.createElement("tr");
-    var col1 = document.createElement("th"); col1.innerHTML = "Nome";
-    var col2 = document.createElement("th"); col2.innerHTML = "Vitórias";
+    var col1 = document.createElement("th"); col1.innerHTML = "Name";
+    var col2 = document.createElement("th"); col2.innerHTML = "Victories";
     line1.appendChild(col1);
     line1.appendChild(col2);
     table.appendChild(line1);

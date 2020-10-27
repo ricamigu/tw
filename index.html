@@ -16,7 +16,7 @@
 		</div> <br><br><br>
 		<div id="op_offline">
 			<br>
-			<p><b> Utilizador </b></p>
+			<p><b> User</b></p>
 			<input type="text" name="user" id ="username">
 			<p><b> Password </b></p>
 			<input type="Password" name="userp" id = "password">
@@ -31,78 +31,76 @@
 	 	</div>
 		<div class="btn-group">
 				<button onclick="home()">Home</button>
-				<button onclick="regras()">Regras</button>
-				<button onclick="classificacao()">Classificações</button>
+				<button onclick="regras()">Rules</button>
+				<button onclick="classificacao()">Scoreboard</button>
 				<button onclick="logout()">Logout</button>
 		</div>
 	</div>
 
 	<div id='regras'>
 			<br><br>
-			<h2>Regras do Othello</h2>
-			<p>O <b>Othello</b> é uma variante moderna do Reversi. Difere deste por fixar a posição inicial das 4 peças/discos iniciais nas casas centrais.</p>
+			<h2>Othello rules</h2>
+			<p><b>Othello</b>is a modern varient of Reversi. The main change is that in the start of the game there are four fixed coins in the middle.</p>
 			
 			<ul>
-				<li><a href="#tabuleiro1">Tabuleiro</a></li>
-				<li><a href="#pecas">Peças/Discos</a></li>
-				<li><a href="#inicio_do_jogo">Início do jogo</a></li>
-				<li><a href="#começar_jogar">Jogar as peças</a></li>
-				<li><a href="#terminar">Terminar o jogo</a></li>
+				<li><a href="#tabuleiro1">Board</a></li>
+				<li><a href="#pecas">Coin/piece</a></li>
+				<li><a href="#inicio_do_jogo">Starting the game</a></li>
+				<li><a href="#começar_jogar">Coin placement</a></li>
+				<li><a href="#terminar">Game Over</a></li>
 			</ul>
 			
 			<br>
-			<h3 id="tabuleiro1">Tabuleiro</h3>
+			<h3 id="tabuleiro1">Board</h3>
 			<img src="imagens/othello-board.png" alt=board>
 			<ul>
-				<li>Tabuleiro quadrado</li>
-				<li>Grelha com 8 linhas por 8 colunas</li>
-				<li><b>Não</b> xadrezado, contrariamente às damas ou ao xadrez</li>
-				<li>Geralmente de fundo verde</li>
+				<li>Square Board</li>
+				<li>8x8 squared board</li>
+				<li><b>Without/b> chequers, unlike checkers and chess</li>
+				<li>Normally as green background</li>
 			</ul>
 
-			<h3 id="pecas">Peças/Discos</h3>
+			<h3 id="pecas">Coin/piece</h3>
 			<ul>
-				<li>As peças denominam-se discos</li>
-				<li>São circulares</li>
-				<li>Com 2 faces de diferentes tonalidades
+				<li>Pieces are called coins</li>
+				<li>Rounded</li>
+				<li>with 2 colors on each side 
 					<ul>
-						<li>lado claro <div class="piece light inline"></div></li>
-						<li>lado escuro <div class="piece dark inline"></div></li>
+						<li>light side <div class="piece light inline"></div></li>
+						<li>dark side <div class="piece dark inline"></div></li>
 					</ul>
 				</li>
 			</ul>
-			<h3 id="inicio_do_jogo">Início do jogo</h3>
+			<h3 id="inicio_do_jogo">Starting the game</h3>
 			<img src="imagens/othello_board_inicio.png" alt="board_inicio">
 			<ul>
-				<li>Na posição inicial há 4 peças</li>
-				<li>2 de cada uma das 2 tonalidades - claro e escuro</li>
-				<li>Colocadas nas casas centrais</li>
-				<li>Peças da mesma tonalidade ficam em diagonal</li>
-				<li>As peças escuras jogam primeiro</li>
+				<li>In the beginnig there are 4 coins</li>
+				<li>2 of each color -light and dark</li>
+				<li>Placed in the middle of the board</li>
+				<li>Coins with the same color are placed across each other</li>
+				<li>Dark coins always start</li>
 			</ul>
 
-			<h3 id="começar_jogar">Jogar as peças</h3>
+			<h3 id="começar_jogar">Coin placement</h3>
 			<ul>
-				<li>Durante o jogo os jogadores jogam alternadamente</li>
-				<li>Colocam uma peça da sua cor numa casa livre</li>
-				<li>Se na mesma linha, coluna ou diagonal da peça jogada tiver peças da cor contrária, viram para a cor do jogador</li>
-				<li>Só pode ser jogada uma peça se for virada alguma</li>
-				<li>A peça colocada pode virar várias peças do adversário que estão na mesma linha, coluna ou diagnoal da peça jogada desde que num dos extremos esteja a peça jogada e no outro esteja uma peça do mesmo tom</li>
-				<li>Podem ser viradas várias peças consecutivas do adversário na mesma linha, coluna ou diagonal, desde que delimitadas pela peça jogada e outra do mesmo tom.</li>
+				<li>Each turn players place one piece of on the board with their color facing up.</li>
+				<li>Each piece played must be laid adjacent to an opponent's piece so that the opponent's piece or a row of opponent's pieces is flanked by the new piece and another piece of the player's color.</li>
+				<li>All of the opponent's pieces between these two pieces are 'captured' and turned over to match the player's color.</li>
+				<li>It can happen that a piece is played so that pieces or rows of pieces in more than one direction are trapped between the new piece played and other pieces of the same color. In this case, all the pieces in all viable directions are turned over.</li>
 			</ul>
 
-			<h3>Passar</h3>
+			<h3>Player turn</h3>
 			<ul>
-				<li>Na sua vez, o jogador só pode jogar se virar peças</li>
-				<li>Caso contrário, não poderá jogar e terá que passar a jogada</li>
-				<li>Mas só pode passar se não tiver jogada possível</li>
+				<li>In his turn a player can only place a coin if it turns at least another coin</li>
+				<li>Else the player must skip his turn</li>
+				<li>But he can only skip if he has no play availabe</li>
 			</ul>
 
-			<h3 id="terminar">Terminar</h3>
+			<h3 id="terminar">Finish</h3>
 			<ul>
-				<li>Jogo termina quando nenhum jogador pode jogar</li>
-				<li>Geralmente quando o tabuleiro está todo preenchido</li>
-				<li>Ganha o jogador com maior número de peças</li>
+				<li>The game ends when both players cant play</li>
+				<li>Usually when the board is full</li>
+				<li>Wins the player with the most coins</li>
 			</ul>
 		</div>
  	<div id='after-login'>
@@ -116,7 +114,7 @@
 			<div id="startgame">
 				<br><br>
 				<button class="button1" onclick="startvs()"><span> 1 Vs 1</span></button>
-				<button class="button1" onclick="startgame()"><span>1 Vs IA</span></button>
+				<button class="button1" onclick="startgame()"><span>1 Vs AI</span></button>
 			</div>
 
 			<div id='cor_peca1'>
@@ -139,9 +137,9 @@
 		<div id='dificuldade'>
 				<h2>Nivel de dificuldade:</h2>
 				<form>
-					<input onclick="dif_easy()" type="radio" name="dif1" value="facil"> Fácil<br>
-					<input onclick="dif_medium()" type="radio" name="dif2" value="medio"> Médio<br>
-					<input onclick="dif_hard()" type="radio" name="dif3" value="dificil"> Difícil 
+					<input onclick="dif_easy()" type="radio" name="dif1" value="facil"> Easy<br>
+					<input onclick="dif_medium()" type="radio" name="dif2" value="medio"> Medium<br>
+					<input onclick="dif_hard()" type="radio" name="dif3" value="dificil"> Hard 
 				</form>
 			</div>
 
@@ -154,7 +152,7 @@
 	
 
 	 <div id='pontuacao'>
-	 	<h3>Pontuação</h3>
+	 	<h3>Scoreboard</h3>
 	 	<br><br>
 	 	<p>White:</p>
 	 	<div id='score1'>0</div>
@@ -162,11 +160,11 @@
 	 	<div id='score2'>0</div>
 	 	<br>
 	 	<div id="alerta"></div>
-	 	<button id='desiste' class="button2" onclick="desistir()">DESISTIR</button>
+	 	<button id='desiste' class="button2" onclick="desistir()">Quit</button>
 	 </div>
 	 <div id="fim-jogo">
 		 <br><br><br><br><br><br><br>
-		 <button class="button2" onclick="novo_jogo()">Novo Jogo</button>
+		 <button class="button2" onclick="novo_jogo()">New Game</button>
 	</div>
 	<div id=area_de_jogo>
 			<br>
