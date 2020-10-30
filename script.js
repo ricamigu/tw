@@ -41,20 +41,15 @@ function login() {
 
 	user = document.getElementById("username").value;		// variáveis para guardar o utilizador
 	var pass = document.getElementById("password").value;	// variável para guardar a password
-
-	// obrigar a que os campos sejam preenchidos
-	if(user === "" || pass === "")
-		window.alert("Preencha os campos");
-
+		
 	// se o utilizador e a password não forem vazios, vai para o próximo passo
-	else {
-		document.getElementById('pag_inicial').style.display = 'none';  
-		document.getElementById('after-login').style.display = 'block';
-		document.getElementById('startgame').style.display = 'block';
-		document.getElementById('regras').style.display = 'none';
-		document.getElementById('cor_peca').style.display = 'none';
-		pontuacoes();
-	}
+	document.getElementById('pag_inicial').style.display = 'none';  
+	document.getElementById('after-login').style.display = 'block';
+	document.getElementById('startgame').style.display = 'block';
+	document.getElementById('regras').style.display = 'none';
+	document.getElementById('cor_peca').style.display = 'none';
+	pontuacoes();
+	
 
 	// versão com um jogador "root" pré-definido, não utilizado
 	/*
@@ -132,6 +127,7 @@ function startgame() {
 function black(){
 	bot = 1;							
 	player = 2;
+	if(user=="") user = "Black"; // se não for dado nome, fica predefinido como player
 	document.getElementById('dificuldade').style.display = 'block';
 	document.getElementById('cor_peca').style.display = 'none';
 }
@@ -140,6 +136,7 @@ function black(){
 function white(){
 	bot = 2;
 	player = 1;
+	if(user=="") user = "White"; // se não for dado nome, fica predefinido como player
 	document.getElementById('dificuldade').style.display = 'block';
 	document.getElementById('cor_peca').style.display = 'none';
 }
@@ -282,13 +279,13 @@ function click_cell(linha,coluna){
 			if ((player==1)){											// se o jogador pode jogar, então
 				tab[linha][coluna] = 1;									// coloca a peça nessa posição
 				player=2;												// e troca o turno do jogador
-				document.getElementById('turno').innerHTML="Black Turn";
+				document.getElementById('turno').innerHTML="Black's Turn";
 			} 
 
 			else if ((player==2)){										// igual, mas para o caso de o jogador
 				tab[linha][coluna] = 2;									// ser o Black
 				player=1;
-				document.getElementById('turno').innerHTML="White Turn";
+				document.getElementById('turno').innerHTML="White's Turn";
 			}
 		}
 
@@ -432,12 +429,12 @@ function preencher() {
 	}
 	// atualizar a mensagem do turno
 	if(bot==0){
-		if(player==1) document.getElementById('turno').innerHTML="White Turn";
-		if(player==2) document.getElementById('turno').innerHTML="Black Turn";
+		if(player==1) document.getElementById('turno').innerHTML="White's Turn";
+		if(player==2) document.getElementById('turno').innerHTML="Black's Turn";
 	}
 	else {
-		if(player==1) document.getElementById('turno').innerHTML= user+" Turn";
-		else if(player==2) document.getElementById('turno').innerHTML= user +" Turn";
+		if(player==1) document.getElementById('turno').innerHTML= user+"'s Turn";
+		else if(player==2) document.getElementById('turno').innerHTML= user +"'s Turn";
 	}
 	document.getElementById('alerta').innerHTML="";
 }
@@ -454,12 +451,12 @@ function passar(){
 
 	if(player==1) {
 			player=2;
-			document.getElementById('turno').innerHTML="Black Turn";
+			document.getElementById('turno').innerHTML="Black's Turn";
 			document.getElementById('alerta').innerHTML="WHITE SKIPPED";
 		}
 		else {
 			player=1;
-			document.getElementById('turno').innerHTML="White Turn";
+			document.getElementById('turno').innerHTML="White's Turn";
 			document.getElementById('alerta').innerHTML="BLACK SKIPPED";
 		}
 
@@ -478,11 +475,11 @@ function passar_bot(){
 	}
 
 	if(player==1) {
-			document.getElementById('turno').innerHTML="Black Turn";
+			document.getElementById('turno').innerHTML="Black's Turn";
 			document.getElementById('alerta').innerHTML= user + " SKIPPED";
 		}
 		else {
-			document.getElementById('turno').innerHTML="White Turn";
+			document.getElementById('turno').innerHTML="White's Turn";
 			document.getElementById('alerta').innerHTML= user + " SKIPPED";
 		}
 
