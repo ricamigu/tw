@@ -1,6 +1,7 @@
 "use strict";
 
 // variaveis globais
+
 var difcl=0;		// dificuldade
 var player=2;		// nº do jogador -> 1 para white e 1 para black
 var point1=0;		// pontos do 1º jogador
@@ -10,7 +11,7 @@ var jogada=0;		// variável usada para corrigir a 1ª jogada em que é sempre o 
 var vitorias1=0;	// variável usada para guardar o nº de vitórias do jogador white
 var vitorias2=0;	//    "       "     "     "    " "  "      "    do jogador black
 var user;			// variável com o nome do utilizador
-
+var passw;
 // estado do tabuleiro inicial
 var tab = [
   [0, 0, 0, 0, 0, 0, 0, 0],
@@ -40,23 +41,15 @@ window.onload = function () { create_table() }			// usado para criar o tabuleiro
 function login() {
 
 	user = document.getElementById("username").value;		// variáveis para guardar o utilizador
-	var pass = document.getElementById("password").value;	// variável para guardar a password
+	passw = document.getElementById("password").value;	// variável para guardar a password
 		
 	// se o utilizador e a password não forem vazios, vai para o próximo passo
-	document.getElementById('pag_inicial').style.display = 'none';  
-	document.getElementById('after-login').style.display = 'block';
-	document.getElementById('startgame').style.display = 'block';
-	document.getElementById('regras').style.display = 'none';
-	document.getElementById('cor_peca').style.display = 'none';
-	pontuacoes();
-	
-
-	// versão com um jogador "root" pré-definido, não utilizado
-	/*
-	if(user === "root" && pass === "root") {
-	    	document.getElementById('pag_inicial').style.display = "none";  
-	        document.getElementById('after-login').style.display = 'block';
-	}*/
+	if(user === "" || passw === "") {
+		window.alert("Please enter a valid username");
+	}
+	else {
+		register(user, passw);
+	}
 }
 
 // função home do jogo, utilizado para ir para a área de jogo a meio do jogo, caso tenha visitado outra área (regras, classificações...)
@@ -115,6 +108,7 @@ function logout(){
 	vitorias2=0;
 	pontuacoes();												// vai atualizar a tabela no HTML
 	clean_board(); 												// e colocar o tabuleiro no estado de jogo inicial
+	//leave(user,passw);
 }
 
 // função para mostrar o tipo de peça escolher antes do jogo começar no caso de 1vsAI
@@ -168,6 +162,7 @@ function start1v1(){
 	document.getElementById('pontuacao').style.display = 'block';
 	document.getElementById('tabuleiro').style.display = "block";
 	document.getElementById('desiste').style.display = "block";
+	join(user,passw);
 	preencher();	// função que faz com que o tabuleiro seja visível em HTML, explicado mais à frente
 }
 
@@ -437,6 +432,7 @@ function preencher() {
 		else if(player==2) document.getElementById('turno').innerHTML= user +"'s Turn";
 	}
 	document.getElementById('alerta').innerHTML="";
+	//update();
 }
 
 // função para verificar se o jogador tem que passar a jogada
@@ -1513,3 +1509,78 @@ function sortTable() {
 	    }
 	}
 }
+
+
+
+// -------------------------------------------------- 2 parte do trabalho --------------------------------------------------
+
+var url = 'http://twserver.alunos.dcc.fc.up.pt:8008/';
+var jogo;
+
+
+function register(user,password){
+
+    fetch(url + "register", {
+        method : "POST",
+        body: JSON.stringify({ nick: user, pass: password} )
+    })
+    .then(function (resp) { return resp.text();} )
+    .then(function (fresp){
+        //console.log(fr);
+        if(fresp!="{}"){
+            window.alert(fresp);
+        }
+        else{
+        	document.getElementById('pag_inicial').style.display = 'none';  
+			document.getElementById('after-login').style.display = 'block';
+			document.getElementById('startgame').style.display = 'block';
+			document.getElementById('regras').style.display = 'none';
+			document.getElementById('cor_peca').style.display = 'none';
+			pontuacoes(); 
+        }
+    });
+} 
+
+function join(user,password){
+
+	fetch(url + "join", {
+		method: "POST",
+		body: JSON.stringify({ group: 12, nick: user, pass: password})
+	})
+	.then(function(resp) { return resp.json();})
+	.then(function(fresp){ 
+		jogo = fresp.game;
+		console.log(jogo);
+	});
+}
+
+//nao funciona
+function leave(user,password){
+
+	fetch(url + "leave", {
+		method: "POST",
+		body: JSON.stringify({ nick: user, pass: password, game: jogo})
+	})
+	.then(function (resp) { return resp.text();} )
+    .then(function (fresp){
+        //console.log(fr);
+        if(fresp!="{}"){
+            window.alert(fresp);
+        }
+        else{
+        	logout();
+        }
+    });
+}
+
+/*
+function update(){
+
+	fetch(url + "update", { 
+		method: "GET"
+	})
+	.then(function(resp) { return resp.json();})
+	.then(function(fresp) { 
+			fresp.board = tab;
+	});
+}*/
