@@ -1516,6 +1516,7 @@ function sortTable() {
 
 var url = 'http://twserver.alunos.dcc.fc.up.pt:8008/';
 var jogo;
+var color;
 
 
 function register(user,password){
@@ -1550,7 +1551,8 @@ function join(user,password){
 	.then(function(resp) { return resp.json();})
 	.then(function(fresp){ 
 		jogo = fresp.game;
-		console.log(jogo);
+		color = fresp.color;
+		console.log(jogo,color);
 	});
 }
 
