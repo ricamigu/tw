@@ -270,8 +270,12 @@ function click_cell(linha,coluna){
 	// caso 1vs1
 	if(bot==0){
 		// funcao para verificar se pode jogar, explicada mais em detalhe à frente
+
 		if(pode_jogar(linha, coluna)){
 
+			notify(user,passw,linha,coluna);
+
+			/*
 			if ((player==1)){											// se o jogador pode jogar, então
 				tab[linha][coluna] = 1;									// coloca a peça nessa posição
 				player=2;												// e troca o turno do jogador
@@ -282,7 +286,7 @@ function click_cell(linha,coluna){
 				tab[linha][coluna] = 2;									// ser o Black
 				player=1;
 				document.getElementById('turno').innerHTML="White's Turn";
-			}
+			}*/
 		}
 
 		else window.alert("You can't play in that position");	// alerta para avisar se a posição é inválida

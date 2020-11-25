@@ -53,12 +53,35 @@ function leave(user,password){
     .then(function (fresp){
         //console.log(fr);
         if(fresp!="{}"){
+        	//console.log(jogo);
             window.alert(fresp);
         }
         else{
-        	logout();
+        	console.log(jogo);
         }
     });
+}
+
+function notify(user,password,linha,coluna){
+
+	var move1 = { row: linha, column: coluna }
+
+	fetch(url + "notify", {
+		method: "POST",
+		body: JSON.stringify({ nick: user, pass: password, game: jogo, move: move1 })
+	})
+	.then(function (resp) { return resp.text();} )
+    .then(function (fresp){
+        //console.log(fr);
+        if(fresp!="{}"){
+        	//console.log(jogo);
+            window.alert(fresp);
+        }
+        else{
+        	console.log("deu");
+        }
+    });
+
 }
 
 /*
