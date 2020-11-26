@@ -85,7 +85,7 @@ function notify(user,password,linha,coluna){
 
 }
 
-// tudo mal method: GET
+// tudo mal method: GET (ServerSentEvents)
 function update(){
 
 	var data = { game: jogo, nick: user }; 
