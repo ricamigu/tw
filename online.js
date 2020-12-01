@@ -3,13 +3,15 @@
 var url = 'http://twserver.alunos.dcc.fc.up.pt:8008/';
 var jogo;
 var color;
+var user;
 
+function register(username,password){
 
-function register(user,password){
+    user = username;
 
     fetch(url + "register", {
         method : "POST",
-        body: JSON.stringify({ nick: user, pass: password} )
+        body: JSON.stringify({ nick: username, pass: password} )
     })
     .then(function (resp) { return resp.text();} )
     .then(function (fresp){
@@ -34,17 +36,32 @@ function join(user,password){
 		method: "POST",
 		body: JSON.stringify({ group: 12, nick: user, pass: password})
 	})
-	.then(function(resp) { return resp.json();})
+	.then(function(resp) { 
+        htm=resp.json();
+        console.log("join.1:");
+        console.log(htm);
+        return htm;})
 	.then(function(fresp){ 
 		jogo = fresp.game;
 		color = fresp.color;
+        console.log("join.2:");
+        console.log(fresp);
 		console.log(jogo,color);
 	});
 
+    setTimeout(espera,1000);
+}
+
+function espera()
+{
+    update();
 }
 
 //nao funciona
 function leave(user,password){
+
+console.log("logout:");
+console.log({ nick: user, pass: password, game: jogo});
 
 	fetch(url + "leave", {
 		method: "POST",
@@ -61,21 +78,31 @@ function leave(user,password){
         	console.log(jogo);
         }
     });
+    var eventSource = new EventSource(url + "update?nick=" + user + "&game=" + jogo );
+    eventSource.close();
 }
 
 function notify(user,password,linha,coluna){
 
 	var move1 = { row: linha, column: coluna }
+console.log("notify:");
+console.log(move1);
 
 	fetch(url + "notify", {
 		method: "POST",
 		body: JSON.stringify({ nick: user, pass: password, game: jogo, move: move1 })
 	})
-	.then(function (resp) { return resp.text();} )
+	.then(function (resp) {
+         htm = resp.text();
+         console.log("text:" + htm);
+         return htm;
+    } )
+
     .then(function (fresp){
         //console.log(fr);
         if(fresp!="{}"){
         	//console.log(jogo);
+            console.log(fresp);
             window.alert(fresp);
         }
         else{
@@ -89,22 +116,25 @@ function notify(user,password,linha,coluna){
 function update(){
 
 	var data = { game: jogo, nick: user }; 
+console.log("update();");
 
-	const eventSource = new EventSource(url + "update");
+	var eventSource = new EventSource(url + "update?nick=" + user + "&game=" + jogo );
 
 	eventSource.onopen = function(e){
 		console.log("connected");
 	}
 
-	source.addEventListener('message', function(e){
-		console.log(e.data)
-	});
+	//eventSource.addEventListener('message', function(e){
+	//	console.log(e.data)
+	//});
 
 	eventSource.onmessage = function(e){
     	data = JSON.parse(e.data);
+
+        console.log(data);
  	};
 
- 	eventSource.close();
+ 	//eventSource.close();
 }
 
 function ranking(){
