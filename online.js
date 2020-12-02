@@ -99,15 +99,15 @@ console.log({ nick: user, pass: password, game: jogo});
 function notify(user,password,linha,coluna){
 
 	var move1;
-	move1 = { row: linha, column: coluna }
+	if(linha==null && coluna==null) move1=null;
+	else move1 = { row: linha, column: coluna }
 
 	console.log("notify:");
 	console.log(move1);
 
-	if(linha==null && coluna == null){
 		fetch(url + "notify", {
 		method: "POST",
-		body: JSON.stringify({ nick: user, pass: password, game: jogo, move: null })
+		body: JSON.stringify({ nick: user, pass: password, game: jogo, move: move1 })
 	})
 	.then(function (resp) {
          htm = resp.text();
@@ -124,48 +124,14 @@ function notify(user,password,linha,coluna){
         }
         else{
         	//tabP = fresp.board;
-			pode_jogar(linha,coluna);
-			preencher();
-			pontuacao();
-			passar();
-			converter();
-	        //console.log("deu");
-        }
-    });	
-	}
-
-	else {
-		fetch(url + "notify", {
-			method: "POST",
-			body: JSON.stringify({ nick: user, pass: password, game: jogo, move: move1 })
-		})
-		.then(function (resp) {
-	         htm = resp.text();
-	         //console.log("text:" + htm);
-	         return htm;
-	    } )
-
-	    .then(function (fresp){
-	        //console.log(fr);
-	        if(fresp!="{}"){
-	        	//console.log(jogo);
-	            console.log(fresp);
-	            window.alert(fresp);
-	        }
-	        else{
-	        	//tabP = fresp.board;
+			if(linha!=null || coluna!=null) {
 				pode_jogar(linha,coluna);
 				preencher();
 				pontuacao();
-				passar();
 				converter();
-		        //console.log("deu");
-	        }
-	    });
-	}
-
-    //var eventSource = new EventSource(url + "update?nick=" + user + "&game=" + jogo );
-    //eventSource.close();
+			}
+        }
+    });	
 
 }
 
