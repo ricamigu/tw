@@ -278,7 +278,9 @@ function click_cell(linha,coluna){
 
 		}
 
-		else window.alert("You can't play in that position");	// alerta para avisar se a posição é inválida
+		//else window.alert("You can't play in that position");	// alerta para avisar se a posição é inválida
+		
+		converter();
 
 		preencher();		// depois de colocar a peça, é necessário atualizar o tabuleiro no HTML
 

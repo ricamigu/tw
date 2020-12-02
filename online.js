@@ -5,6 +5,17 @@ var jogo;
 var color;
 var user;
 
+var tabP = [
+  ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
+  ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
+  ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"], 			// 0 = posição vazia
+  ["empty", "empty", "empty", "light", "dark" , "empty", "empty", "empty"],				// 1 = posição com uma peça branca 
+  ["empty", "empty", "empty", "dark" , "light", "empty", "empty", "empty"],				// 2 = posição com uma peça preta
+  ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],			
+  ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
+  ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"]
+];
+
 function register(username,password){
 
     user = username;
@@ -95,7 +106,7 @@ function notify(user,password,linha,coluna){
 	})
 	.then(function (resp) {
          htm = resp.text();
-         console.log("text:" + htm);
+         //console.log("text:" + htm);
          return htm;
     } )
 
@@ -107,9 +118,11 @@ function notify(user,password,linha,coluna){
             window.alert(fresp);
         }
         else{
-				pode_jogar(linha,coluna);
-				preencher();
-	        	console.log("deu");
+        	//tabP = fresp.board;
+			pode_jogar(linha,coluna);
+			preencher();
+			converter();
+	        console.log("deu");
         }
     });
 
@@ -133,8 +146,9 @@ function update(){
 
 	eventSource.onmessage = function(e){
     	data = JSON.parse(e.data);
-
-        console.log(data);
+    	tabP = data.board;
+        console.log(tabP);
+        converter();
  	};
 
  	//eventSource.close();
@@ -202,4 +216,18 @@ function printRanking(ranks){
         table.appendChild(line1);
 
     }
+}
+
+
+function converter(){
+
+	for(var i=0; i<8; i++){
+		for(var j=0; j<8; j++){
+			if(tabP[i][j]=="empty") tab[i][j] = 0;
+			if(tabP[i][j]== "light") tab[i][j] = 1;
+			if(tabP[i][j]== "dark") tab[i][j] = 2;
+		}
+	}
+
+	preencher();
 }
