@@ -4,6 +4,7 @@ var url = 'http://twserver.alunos.dcc.fc.up.pt:8008/';
 var jogo;
 var color;
 var user;
+var turno;
 
 var tabP = [
   ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
@@ -121,14 +122,19 @@ function notify(user,password,linha,coluna){
         	//tabP = fresp.board;
 			pode_jogar(linha,coluna);
 			preencher();
+			pontuacao();
+			passar();
 			converter();
 	        console.log("deu");
         }
     });
 
+    //var eventSource = new EventSource(url + "update?nick=" + user + "&game=" + jogo );
+    //eventSource.close();
+
 }
 
-// tudo mal method: GET (ServerSentEvents)
+
 function update(){
 
 	var data = { game: jogo, nick: user }; 
@@ -146,8 +152,12 @@ function update(){
 
 	eventSource.onmessage = function(e){
     	data = JSON.parse(e.data);
-    	tabP = data.board;
-        console.log(tabP);
+    	if(data!=undefined){
+	    	tabP = data.board;
+	    	turno = data.turn;
+	    }
+        //console.log(tabP);
+        console.log(data);
         converter();
  	};
 
@@ -223,11 +233,13 @@ function converter(){
 
 	for(var i=0; i<8; i++){
 		for(var j=0; j<8; j++){
-			if(tabP[i][j]=="empty") tab[i][j] = 0;
-			if(tabP[i][j]== "light") tab[i][j] = 1;
-			if(tabP[i][j]== "dark") tab[i][j] = 2;
+			if(tabP[i][j] == "empty") tab[i][j] = 0;
+			if(tabP[i][j] == "light") tab[i][j] = 1;
+			if(tabP[i][j] == "dark")  tab[i][j] = 2;
 		}
 	}
 
 	preencher();
+	//console.log(tab);
+	//console.log(tabP);
 }

@@ -164,6 +164,8 @@ function start1v1(){
 	document.getElementById('tabuleiro').style.display = "block";
 	document.getElementById('desiste').style.display = "block";
 	join(user,passw);
+	if(color == "dark") player=1;
+	else player=2;
 	preencher();	// função que faz com que o tabuleiro seja visível em HTML, explicado mais à frente
 }
 
@@ -271,15 +273,22 @@ function click_cell(linha,coluna){
 	if(bot==0){
 		// funcao para verificar se pode jogar, explicada mais em detalhe à frente
 
-		if(pode_jogar_bool(linha,coluna) && notify(user,passw,linha,coluna)=="{}"){
+		//console.log(user, color)
 
-			prencher();
-			passar();
+			var b = notify(user,passw,linha,coluna)=="{}";
+			console.log("1: ",b,turno);
+			if(b){
+				console.log("2: ",b,turno);
+				console.log("ola");
 
-		}
+				prencher();
+				passar();
+				pontuacao();
 
-		//else window.alert("You can't play in that position");	// alerta para avisar se a posição é inválida
-		
+			}
+
+			//else window.alert("You can't play in that position");	// alerta para avisar se a posição é inválida
+
 		converter();
 
 		preencher();		// depois de colocar a peça, é necessário atualizar o tabuleiro no HTML
