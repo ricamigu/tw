@@ -49,6 +49,7 @@ function login() {
 	}
 	else {
 		register(user, passw);
+		preencher();
 	}
 }
 
@@ -428,14 +429,12 @@ function preencher() {
 		}
 	}
 	// atualizar a mensagem do turno
-	if(bot==0){
-		if(player==1) document.getElementById('turno').innerHTML="White's Turn";
-		if(player==2) document.getElementById('turno').innerHTML="Black's Turn";
-	}
-	else {
-		if(player==1) document.getElementById('turno').innerHTML= user+"'s Turn";
-		else if(player==2) document.getElementById('turno').innerHTML= user +"'s Turn";
-	}
+	    if(opponent==""){
+	    	document.getElementById('turno').innerHTML= "Black's Turn";
+	    }
+		else if(turno==user) document.getElementById('turno').innerHTML= user+"'s Turn";
+		else document.getElementById('turno').innerHTML= opponent +"'s Turn";
+
 	document.getElementById('alerta').innerHTML="";
 	//update();
 }

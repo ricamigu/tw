@@ -6,8 +6,6 @@ var color;
 var user;
 var turno;
 var opponent="";
-var count = 0;
-var count1= 0;
 
 var tabP = [
   ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
@@ -100,13 +98,16 @@ console.log({ nick: user, pass: password, game: jogo});
 
 function notify(user,password,linha,coluna){
 
-	var move1 = { row: linha, column: coluna }
+	var move1;
+	move1 = { row: linha, column: coluna }
+
 	console.log("notify:");
 	console.log(move1);
 
-	fetch(url + "notify", {
+	if(linha==null && coluna == null){
+		fetch(url + "notify", {
 		method: "POST",
-		body: JSON.stringify({ nick: user, pass: password, game: jogo, move: move1 })
+		body: JSON.stringify({ nick: user, pass: password, game: jogo, move: null })
 	})
 	.then(function (resp) {
          htm = resp.text();
@@ -130,7 +131,38 @@ function notify(user,password,linha,coluna){
 			converter();
 	        //console.log("deu");
         }
-    });
+    });	
+	}
+
+	else {
+		fetch(url + "notify", {
+			method: "POST",
+			body: JSON.stringify({ nick: user, pass: password, game: jogo, move: move1 })
+		})
+		.then(function (resp) {
+	         htm = resp.text();
+	         //console.log("text:" + htm);
+	         return htm;
+	    } )
+
+	    .then(function (fresp){
+	        //console.log(fr);
+	        if(fresp!="{}"){
+	        	//console.log(jogo);
+	            console.log(fresp);
+	            window.alert(fresp);
+	        }
+	        else{
+	        	//tabP = fresp.board;
+				pode_jogar(linha,coluna);
+				preencher();
+				pontuacao();
+				passar();
+				converter();
+		        //console.log("deu");
+	        }
+	    });
+	}
 
     //var eventSource = new EventSource(url + "update?nick=" + user + "&game=" + jogo );
     //eventSource.close();
@@ -160,11 +192,10 @@ function update(){
 	    	turno = data.turn;
 	    }
 
-	    if(opponent=="" && turno!=user) {opponent = turno; console.log(opponent);}
+	    if(opponent=="" && turno!=user) {opponent = turno;} //console.log(opponent);}
 
-	    if(data.skip==true){
-	    	data.turn = opponent;
-	    }
+	    if(data.skip==true) notify(user,password,null,null);
+
         //console.log(tabP);
         console.log(data);
         converter();
