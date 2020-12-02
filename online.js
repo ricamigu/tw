@@ -50,6 +50,7 @@ function join(user,password){
 	});
 
     setTimeout(espera,1000);
+    //update();
 }
 
 function espera()
@@ -85,8 +86,8 @@ console.log({ nick: user, pass: password, game: jogo});
 function notify(user,password,linha,coluna){
 
 	var move1 = { row: linha, column: coluna }
-console.log("notify:");
-console.log(move1);
+	console.log("notify:");
+	console.log(move1);
 
 	fetch(url + "notify", {
 		method: "POST",
@@ -106,7 +107,9 @@ console.log(move1);
             window.alert(fresp);
         }
         else{
-        	console.log("deu");
+				pode_jogar(linha,coluna);
+				preencher();
+	        	console.log("deu");
         }
     });
 
@@ -116,7 +119,7 @@ console.log(move1);
 function update(){
 
 	var data = { game: jogo, nick: user }; 
-console.log("update();");
+	console.log("update();");
 
 	var eventSource = new EventSource(url + "update?nick=" + user + "&game=" + jogo );
 

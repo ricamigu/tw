@@ -271,22 +271,11 @@ function click_cell(linha,coluna){
 	if(bot==0){
 		// funcao para verificar se pode jogar, explicada mais em detalhe à frente
 
-		if(pode_jogar(linha, coluna)){
+		if(pode_jogar_bool(linha,coluna) && notify(user,passw,linha,coluna)=="{}"){
 
-			notify(user,passw,linha,coluna);
+			prencher();
+			passar();
 
-			/*
-			if ((player==1)){											// se o jogador pode jogar, então
-				tab[linha][coluna] = 1;									// coloca a peça nessa posição
-				player=2;												// e troca o turno do jogador
-				document.getElementById('turno').innerHTML="Black's Turn";
-			} 
-
-			else if ((player==2)){										// igual, mas para o caso de o jogador
-				tab[linha][coluna] = 2;									// ser o Black
-				player=1;
-				document.getElementById('turno').innerHTML="White's Turn";
-			}*/
 		}
 
 		else window.alert("You can't play in that position");	// alerta para avisar se a posição é inválida
