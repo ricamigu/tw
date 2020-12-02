@@ -5,6 +5,9 @@ var jogo;
 var color;
 var user;
 var turno;
+var opponent="";
+var count = 0;
+var count1= 0;
 
 var tabP = [
   ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
@@ -125,7 +128,7 @@ function notify(user,password,linha,coluna){
 			pontuacao();
 			passar();
 			converter();
-	        console.log("deu");
+	        //console.log("deu");
         }
     });
 
@@ -155,6 +158,12 @@ function update(){
     	if(data!=undefined){
 	    	tabP = data.board;
 	    	turno = data.turn;
+	    }
+
+	    if(opponent=="" && turno!=user) {opponent = turno; console.log(opponent);}
+
+	    if(data.skip==true){
+	    	data.turn = opponent;
 	    }
         //console.log(tabP);
         console.log(data);

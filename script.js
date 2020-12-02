@@ -276,7 +276,7 @@ function click_cell(linha,coluna){
 		//console.log(user, color)
 
 			var b = notify(user,passw,linha,coluna)=="{}";
-			console.log("1: ",b,turno);
+			//console.log("1: ",b,turno);
 			if(b){
 				console.log("2: ",b,turno);
 				console.log("ola");
