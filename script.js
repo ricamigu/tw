@@ -241,6 +241,7 @@ function first_play(){
 		}
 		document.getElementById('cor_peca').style.display = 'none';
 	}
+	player=1;
 }
 
 
@@ -313,6 +314,7 @@ function click_cell(linha,coluna){
 
 	// caso do 1vsAI na dificuldade fácil
 	else if(bot!=0 && difcl==1){
+		if(bot==2) player=1;
 		if(pode_jogar(linha,coluna)){
 			tab[linha][coluna] = player;
 			bot_easy();							// o AI joga logo a seguir ao jogador, se for possível
@@ -345,6 +347,7 @@ function click_cell(linha,coluna){
 	}
 
 	else if(bot!=0 && difcl==2){
+		if(bot==2) player=1;
 		if(pode_jogar(linha,coluna)){
 			tab[linha][coluna] = player;
 			bot_med();				// o AI joga logo a seguir ao jogador, se for possível
@@ -379,9 +382,9 @@ function click_cell(linha,coluna){
 	}
 
 	else if(bot!=0 && difcl==3){
-
-			if(pode_jogar(linha,coluna)){
-				tab[linha][coluna] = player;
+		if(bot==2) player=1;
+		if(pode_jogar(linha,coluna)){
+			tab[linha][coluna] = player;
 			bot_hard();
 		}
 		else window.alert("You can't play in this position");	// alerta para avisar se a posição é inválida
