@@ -160,7 +160,7 @@ function update(){
 
 	    if(opponent=="" && turno!=user) {opponent = turno;} //console.log(opponent);}
 
-	    if(data.skip==true) notify(user,password,null,null);
+	    if(data.skip==true) click_cell(null,null);
 
         //console.log(tabP);
         console.log(data);
