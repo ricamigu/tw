@@ -180,15 +180,34 @@ function startvs() {
 
 // função para começar um jogo novo, usada quando um jogo termina
 function novo_jogo(){
-	document.getElementById('fim-jogo').style.display = "none";
-	clean_board();												// para isso, o tabuleiro tem que ser "limpo"
-	point1=0; point2=0;											// e voltar a ter pontos = 0
-	document.getElementById("score1").innerHTML = point1;
-	document.getElementById("score2").innerHTML = point2;
-	document.getElementById('tabuleiro').style.display = "block";
-	document.getElementById('pontuacao').style.display = "block";
-	document.getElementById('desiste').style.display = "block";
-	preencher();
+
+	if(bot!=0){
+		document.getElementById('fim-jogo').style.display = "none";
+		clean_board();												// para isso, o tabuleiro tem que ser "limpo"
+		point1=0; point2=0;											// e voltar a ter pontos = 0
+		document.getElementById("score1").innerHTML = point1;
+		document.getElementById("score2").innerHTML = point2;
+		document.getElementById('tabuleiro').style.display = "block";
+		document.getElementById('pontuacao').style.display = "block";
+		document.getElementById('desiste').style.display = "block";
+		preencher();
+	}
+
+	else {
+
+		document.getElementById('fim-jogo').style.display = "none";
+		clean_board(); reset_boardP();
+		pointsB=0; pointsL=0;
+		document.getElementById("score1").innerHTML = pointsL;
+		document.getElementById("score2").innerHTML = pointsB;
+		document.getElementById('tabuleiro').style.display = "block";
+		document.getElementById('pontuacao').style.display = "block";
+		document.getElementById('desiste').style.display = "block";
+		preencher();
+		leave(user,passw);
+		join(user,passw);
+	}
+
 }
 
 // função para definir as variáveis globais necessárias no modo fácil
@@ -285,7 +304,7 @@ function click_cell(linha,coluna){
 
 				prencher();
 				passar();
-				pontuacao();
+				pontuacoesONLINE();
 
 			}
 
@@ -295,6 +314,7 @@ function click_cell(linha,coluna){
 
 		preencher();		// depois de colocar a peça, é necessário atualizar o tabuleiro no HTML
 
+		/*
 		passar();			// verificar se o jogador tem que passar a jogada
 			
 		if(end_game()){		// verificar se o jogo acaba
@@ -309,7 +329,7 @@ function click_cell(linha,coluna){
 			document.getElementById('desiste').style.display = "none";
 			document.getElementById('fim-jogo').style.display = "block";
 			pontuacoes();	// atualizar as pontuações
-		}
+		}*/
 	}
 
 	// caso do 1vsAI na dificuldade fácil
@@ -548,44 +568,89 @@ function board_cheio(){
 
 // esta função é executada quando o jogador clica no botão de desistir a meio de um jogo
 function desistir(){
-													// no caso de o jogador desistir, o adversário ganha 
-	if(player==1){									// com o máximo de pontos (64)
-		tab = [
-		  [2, 2, 2, 2, 2, 2, 2, 2],
-		  [2, 2, 2, 2, 2, 2, 2, 2],
-		  [2, 2, 2, 2, 2, 2, 2, 2],
-		  [2, 2, 2, 2, 2, 2, 2, 2],
-		  [2, 2, 2, 2, 2, 2, 2, 2],
-		  [2, 2, 2, 2, 2, 2, 2, 2],
-		  [2, 2, 2, 2, 2, 2, 2, 2],
-		  [2, 2, 2, 2, 2, 2, 2, 2]
-		];
-		preencher();			// é necessário atualizar o tabuleiro no HTML
-		pontuacao();			// e as pontuações também
-		if(bot==0) document.getElementById('turno').innerHTML="White QUITS";
-		else document.getElementById('turno').innerHTML= user +" QUITS";
-		vitorias2++;
+
+
+	if(bot!=0){
+														// no caso de o jogador desistir, o adversário ganha 
+		if(player==1){									// com o máximo de pontos (64)
+			tab = [
+			  [2, 2, 2, 2, 2, 2, 2, 2],
+			  [2, 2, 2, 2, 2, 2, 2, 2],
+			  [2, 2, 2, 2, 2, 2, 2, 2],
+			  [2, 2, 2, 2, 2, 2, 2, 2],
+			  [2, 2, 2, 2, 2, 2, 2, 2],
+			  [2, 2, 2, 2, 2, 2, 2, 2],
+			  [2, 2, 2, 2, 2, 2, 2, 2],
+			  [2, 2, 2, 2, 2, 2, 2, 2]
+			];
+			preencher();			// é necessário atualizar o tabuleiro no HTML
+			pontuacao();			// e as pontuações também
+			if(bot==0) document.getElementById('turno').innerHTML="White QUITS";
+			else document.getElementById('turno').innerHTML= user +" QUITS";
+			vitorias2++;
+		}
+		else {
+			tab = [
+			  [1, 1, 1, 1, 1, 1, 1, 1],
+			  [1, 1, 1, 1, 1, 1, 1, 1],
+			  [1, 1, 1, 1, 1, 1, 1, 1],
+			  [1, 1, 1, 1, 1, 1, 1, 1],
+			  [1, 1, 1, 1, 1, 1, 1, 1],
+			  [1, 1, 1, 1, 1, 1, 1, 1],
+			  [1, 1, 1, 1, 1, 1, 1, 1],
+			  [1, 1, 1, 1, 1, 1, 1, 1]
+			];
+			preencher();
+			pontuacao();
+			if(bot==0) document.getElementById('turno').innerHTML="BLACK QUITS";
+			else document.getElementById('turno').innerHTML= user + " QUITS";
+			vitorias1++;
+		}
+		document.getElementById('fim-jogo').style.display = "block";
+		document.getElementById('desiste').style.display = "none";
+		pontuacoes();		// no fim atualiza a pontuação dos jogos gerais para o número de vitórias (pontuacao() e pontuacoes() são duas funções diferentes)
 	}
 	else {
-		tab = [
-		  [1, 1, 1, 1, 1, 1, 1, 1],
-		  [1, 1, 1, 1, 1, 1, 1, 1],
-		  [1, 1, 1, 1, 1, 1, 1, 1],
-		  [1, 1, 1, 1, 1, 1, 1, 1],
-		  [1, 1, 1, 1, 1, 1, 1, 1],
-		  [1, 1, 1, 1, 1, 1, 1, 1],
-		  [1, 1, 1, 1, 1, 1, 1, 1],
-		  [1, 1, 1, 1, 1, 1, 1, 1]
-		];
-		preencher();
-		pontuacao();
-		if(bot==0) document.getElementById('turno').innerHTML="BLACK QUITS";
-		else document.getElementById('turno').innerHTML= user + " QUITS";
-		vitorias1++;
+
+		if(player==1){									// com o máximo de pontos (64)
+			tab = [
+			  [2, 2, 2, 2, 2, 2, 2, 2],
+			  [2, 2, 2, 2, 2, 2, 2, 2],
+			  [2, 2, 2, 2, 2, 2, 2, 2],
+			  [2, 2, 2, 2, 2, 2, 2, 2],
+			  [2, 2, 2, 2, 2, 2, 2, 2],
+			  [2, 2, 2, 2, 2, 2, 2, 2],
+			  [2, 2, 2, 2, 2, 2, 2, 2],
+			  [2, 2, 2, 2, 2, 2, 2, 2]
+			];
+			preencher();			// é necessário atualizar o tabuleiro no HTML
+			pontuacoesONLINE();			// e as pontuações também
+			if(turno==user) document.getElementById('turno').innerHTML=user+" QUITS";
+			else document.getElementById('turno').innerHTML= opponent +" QUITS";
+			//vitorias2++;
+		}
+		else {
+			tab = [
+			  [1, 1, 1, 1, 1, 1, 1, 1],
+			  [1, 1, 1, 1, 1, 1, 1, 1],
+			  [1, 1, 1, 1, 1, 1, 1, 1],
+			  [1, 1, 1, 1, 1, 1, 1, 1],
+			  [1, 1, 1, 1, 1, 1, 1, 1],
+			  [1, 1, 1, 1, 1, 1, 1, 1],
+			  [1, 1, 1, 1, 1, 1, 1, 1],
+			  [1, 1, 1, 1, 1, 1, 1, 1]
+			];
+			preencher();
+			pontuacoesONLINE();
+			if(turno==user) document.getElementById('turno').innerHTML=user+" QUITS";
+			else document.getElementById('turno').innerHTML= opponent +" QUITS";
+		}
+		document.getElementById('fim-jogo').style.display = "block";
+		document.getElementById('desiste').style.display = "none";
+		//click_cell(null,null);
+		leave(user,passw);
+		//pontuacoes();		
 	}
-	document.getElementById('fim-jogo').style.display = "block";
-	document.getElementById('desiste').style.display = "none";
-	pontuacoes();		// no fim atualiza a pontuação dos jogos gerais para o número de vitórias (pontuacao() e pontuacoes() são duas funções diferentes)
 }
 
 // função para atualizar e mostrar as pontuações durante o jogo

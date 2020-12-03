@@ -6,6 +6,11 @@ var color;
 var user;
 var turno;
 var opponent="";
+var pointsB=0;
+var pointsL=0;
+var time;
+var alert;
+
 
 var tabP = [
   ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
@@ -30,7 +35,11 @@ function register(username,password){
     .then(function (fresp){
         //console.log(fr);
         if(fresp!="{}"){
-            window.alert(fresp);
+        	alert = fresp.replace('"error":','');
+        	alert = alert.replace('{',''); alert = alert.replace('}','');
+        	alert = alert.replace('"',''); alert = alert.replace('"','');
+        	document.getElementById('alerta').innerHTML=alert;
+            //window.alert(fresp);
         }
         else{
         	document.getElementById('pag_inicial').style.display = 'none';  
@@ -62,7 +71,7 @@ function join(user,password){
 		console.log(jogo,color);
 	});
 
-    setTimeout(espera,1000);
+    setTimeout(espera,500);
     //update();
 }
 
@@ -86,7 +95,11 @@ console.log({ nick: user, pass: password, game: jogo});
         //console.log(fr);
         if(fresp!="{}"){
         	//console.log(jogo);
-            window.alert(fresp);
+            //window.alert(fresp);
+            alert = fresp.replace('"error":','');
+            alert = alert.replace('{',''); alert = alert.replace('}','');
+            alert = alert.replace('"',''); alert = alert.replace('"','');
+        	document.getElementById('alerta').innerHTML=alert;
         }
         else{
         	console.log(jogo);
@@ -120,7 +133,11 @@ function notify(user,password,linha,coluna){
         if(fresp!="{}"){
         	//console.log(jogo);
             console.log(fresp);
-            window.alert(fresp);
+            //window.alert(fresp);
+           alert = fresp.replace('"error":','');
+           alert = alert.replace('{',''); alert = alert.replace('}','');
+           alert = alert.replace('"',''); alert = alert.replace('"','');
+        	document.getElementById('alerta').innerHTML=alert;
         }
         else{
         	//tabP = fresp.board;
@@ -156,15 +173,29 @@ function update(){
     	if(data!=undefined){
 	    	tabP = data.board;
 	    	turno = data.turn;
+	    	pointsB = data.count.dark;
+	    	pointsL = data.count.light;
+	    	pontuacoesONLINE();
+	    	//time = setTimeout(leave(user,passw),120000);
 	    }
 
 	    if(opponent=="" && turno!=user) {opponent = turno;} //console.log(opponent);}
 
 	    if(data.skip==true) click_cell(null,null);
 
-        //console.log(tabP);
-        console.log(data);
+	    console.log(data);
         converter();
+
+	    if(data.winner!=null){
+		    //document.getElementById('turno').innerHTML=data.winner+" WINS";
+		    document.getElementById('msg').innerHTML=data.winner+" WINS";
+		    document.getElementById('desiste').style.display = "none";
+			document.getElementById('fim-jogo').style.display = "block";
+	    }
+	   
+
+        //console.log(tabP);
+        //clearTimeout(time);
  	};
 
  	//eventSource.close();
@@ -248,4 +279,29 @@ function converter(){
 	preencher();
 	//console.log(tab);
 	//console.log(tabP);
+}
+
+
+//funcao de pontuacoes
+function pontuacoesONLINE(){
+
+	//console.log(pointsB,pointsL);
+	document.getElementById("score1").innerHTML = pointsL;
+	document.getElementById("score2").innerHTML = pointsB;
+
+}
+
+function reset_boardP(){
+
+	tabP = [
+	  ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
+	  ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
+	  ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"], 			// 0 = posição vazia
+	  ["empty", "empty", "empty", "light", "dark" , "empty", "empty", "empty"],				// 1 = posição com uma peça branca 
+	  ["empty", "empty", "empty", "dark" , "light", "empty", "empty", "empty"],				// 2 = posição com uma peça preta
+	  ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],			
+	  ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
+	  ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"]
+	];
+	converter();
 }
