@@ -212,6 +212,7 @@ function ranking(){
     })
     .then(function (fr){
         printRanking(fr.ranking);
+        /*
         document.getElementById('regras').style.display = 'none';
 		document.getElementById('startgame').style.display = 'none';
 		document.getElementById('cor_peca').style.display = 'none';
@@ -220,7 +221,7 @@ function ranking(){
 		document.getElementById('pontuacao').style.display = 'none';
 		document.getElementById('classificacoes').style.display = 'block';
 		document.getElementById('info').style.display = "block";
-		document.getElementById('fim-jogo').style.display = "none";
+		document.getElementById('fim-jogo').style.display = "none";*/
     });
 
 }

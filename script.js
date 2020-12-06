@@ -87,6 +87,7 @@ function classificacao(){
 	document.getElementById('classificacoes').style.display = 'block';
 	document.getElementById('info').style.display = "block";
 	document.getElementById('fim-jogo').style.display = "none";
+	if(bot!=0) pontuacoes(); else ranking();
 }
 
 // função para fazer logout do jogo
@@ -110,7 +111,8 @@ function logout(){
 	pontuacoes();												// vai atualizar a tabela no HTML
 	clean_board(); 												// e colocar o tabuleiro no estado de jogo inicial
 	//console.log(user,passw,jogo);
-	leave(user,passw);
+	if(bot==0) leave(user,passw);
+	bot=0;
 }
 
 // função para mostrar o tipo de peça escolher antes do jogo começar no caso de 1vsAI
@@ -164,9 +166,13 @@ function start1v1(){
 	document.getElementById('pontuacao').style.display = 'block';
 	document.getElementById('tabuleiro').style.display = "block";
 	document.getElementById('desiste').style.display = "block";
-	join(user,passw);
-	if(color == "dark") player=1;
-	else player=2;
+
+	if(bot==0){
+		join(user,passw);
+		if(color == "dark") player=1;
+		else player=2;
+	}
+
 	preencher();	// função que faz com que o tabuleiro seja visível em HTML, explicado mais à frente
 }
 
@@ -260,7 +266,7 @@ function first_play(){
 		}
 		document.getElementById('cor_peca').style.display = 'none';
 	}
-	player=1;
+	//player=1;
 }
 
 
@@ -352,17 +358,20 @@ function click_cell(linha,coluna){
 				if(player==1) document.getElementById('alerta').innerHTML= user + " WINS";
 				else document.getElementById('alerta').innerHTML="WHITE WINS";
 				vitorias1++;
+				localStorage.vitoriasW++;
 			}
 			else if(point1<point2) {
 				if(player==2) document.getElementById('alerta').innerHTML= user + " WINS";
 				else document.getElementById('alerta').innerHTML="BLACK WINS"; 
 				vitorias2++;
+				localStorage.vitoriasB++;
 			}
 			else document.getElementById('alerta').innerHTML="DRAW";
 
 			document.getElementById('desiste').style.display = "none";
 			document.getElementById('fim-jogo').style.display = "block";
 			pontuacoes();			// atualizar as pontuações no fim
+
 		}
 	}
 
@@ -386,17 +395,20 @@ function click_cell(linha,coluna){
 				if(player==1) document.getElementById('alerta').innerHTML= user + " WINS";
 				else document.getElementById('alerta').innerHTML="WHITE WINS";
 				vitorias1++;
+				localStorage.vitoriasW++;
 			}
 			else if(point1<point2) {
 				if(player==2) document.getElementById('alerta').innerHTML= user + " WINS";
 				else document.getElementById('alerta').innerHTML="BLACK WINS"; 
 				vitorias2++;
+				localStorage.vitoriasB++;
 			}
 			else document.getElementById('alerta').innerHTML="DRAW";
 
 			document.getElementById('desiste').style.display = "none";
 			document.getElementById('fim-jogo').style.display = "block";
 			pontuacoes();		// atualizar as pontuações no fim
+    	
 		}
 
 	}
@@ -420,17 +432,20 @@ function click_cell(linha,coluna){
 				if(player==1) document.getElementById('alerta').innerHTML= user + " WINS";
 				else document.getElementById('alerta').innerHTML="WHITE WINS";
 				vitorias1++;
+				localStorage.vitoriasW++;
 			}
 			else if(point1<point2) {
 				if(player==2) document.getElementById('alerta').innerHTML= user + " WINS";
 				else document.getElementById('alerta').innerHTML="BLACK WINS"; 
 				vitorias2++;
+				localStorage.vitoriasB++;
 			}
 			else document.getElementById('alerta').innerHTML="DRAW";
 
 			document.getElementById('desiste').style.display = "none";
 			document.getElementById('fim-jogo').style.display = "block";
 			pontuacoes();		// atualizar as pontuações no fim
+
 		}
 	}
 }
@@ -588,6 +603,7 @@ function desistir(){
 			if(bot==0) document.getElementById('turno').innerHTML="White QUITS";
 			else document.getElementById('turno').innerHTML= user +" QUITS";
 			vitorias2++;
+			localStorage.vitoriasB++;
 		}
 		else {
 			tab = [
@@ -605,10 +621,13 @@ function desistir(){
 			if(bot==0) document.getElementById('turno').innerHTML="BLACK QUITS";
 			else document.getElementById('turno').innerHTML= user + " QUITS";
 			vitorias1++;
+			localStorage.vitoriasW++;
 		}
 		document.getElementById('fim-jogo').style.display = "block";
 		document.getElementById('desiste').style.display = "none";
 		pontuacoes();		// no fim atualiza a pontuação dos jogos gerais para o número de vitórias (pontuacao() e pontuacoes() são duas funções diferentes)
+
+		//var value1w = localStorage.getItem(key1)
 	}
 	else {
 
@@ -1516,6 +1535,7 @@ function pontuacoes(){
         table.removeChild(table.firstChild);			// remove o que lá está, porque vai ser reescrito
     }
 
+
     var line1 = document.createElement("tr");
     var col1 = document.createElement("th"); col1.innerHTML = "Name";
     var col2 = document.createElement("th"); col2.innerHTML = "Victories";
@@ -1533,17 +1553,18 @@ function pontuacoes(){
     // atualiza as vitórias para cada jogador
     if(player==1){
         colR1.innerHTML = user;
-       	colR2.innerHTML = vitorias1;
+       	colR2.innerHTML = localStorage.vitoriasW;
         colR3.innerHTML = "Black";
-        colR4.innerHTML = vitorias2;
+        colR4.innerHTML = localStorage.vitoriasB;
     }
 
     else {
 	    colR1.innerHTML = "White";
-	    colR2.innerHTML = vitorias1;
+	    colR2.innerHTML = localStorage.vitoriasW;
 	    colR3.innerHTML = user;
-	    colR4.innerHTML = vitorias2;
+	    colR4.innerHTML = localStorage.vitoriasB;
     }
+
     // dá append de cada variável criada acima de acordo com a ordem necessária
     lineR.appendChild(colR1);		// append das colunas nas linhas
     lineR.appendChild(colR2);
