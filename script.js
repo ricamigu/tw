@@ -12,6 +12,9 @@ var vitorias1=0;	// variável usada para guardar o nº de vitórias do jogador w
 var vitorias2=0;	//    "       "     "     "    " "  "      "    do jogador black
 var user;			// variável com o nome do utilizador
 var passw;
+
+if(localStorage.vitoriasW==null) localStorage.vitoriasW=0;
+if(localStorage.vitoriasB==null) localStorage.vitoriasB=0;
 // estado do tabuleiro inicial
 var tab = [
   [0, 0, 0, 0, 0, 0, 0, 0],
@@ -172,7 +175,6 @@ function start1v1(){
 		if(color == "dark") player=1;
 		else player=2;
 	}
-
 	preencher();	// função que faz com que o tabuleiro seja visível em HTML, explicado mais à frente
 }
 
@@ -1551,19 +1553,10 @@ function pontuacoes(){
     var colR4 = document.createElement("th");
 
     // atualiza as vitórias para cada jogador
-    if(player==1){
-        colR1.innerHTML = user;
-       	colR2.innerHTML = localStorage.vitoriasW;
-        colR3.innerHTML = "Black";
-        colR4.innerHTML = localStorage.vitoriasB;
-    }
-
-    else {
-	    colR1.innerHTML = "White";
-	    colR2.innerHTML = localStorage.vitoriasW;
-	    colR3.innerHTML = user;
-	    colR4.innerHTML = localStorage.vitoriasB;
-    }
+    colR1.innerHTML = "White";
+    colR2.innerHTML = localStorage.vitoriasW;
+    colR3.innerHTML = "Black";
+    colR4.innerHTML = localStorage.vitoriasB;
 
     // dá append de cada variável criada acima de acordo com a ordem necessária
     lineR.appendChild(colR1);		// append das colunas nas linhas
