@@ -1,6 +1,8 @@
 // -------------------------------------------------- 2 parte do trabalho --------------------------------------------------
 
-var url = 'http://twserver.alunos.dcc.fc.up.pt:8008/';
+//var url = 'http://localhost:8112/';
+var url = 'http://twserver.alunos.dcc.fc.up.pt:8112/';
+
 var jogo;
 var color;
 var user;
@@ -9,7 +11,7 @@ var opponent="";
 var pointsB=0;
 var pointsL=0;
 var time;
-var alert;
+var alerta;
 
 
 var tabP = [
@@ -26,22 +28,32 @@ var tabP = [
 function register(username,password){
 
     user = username;
+    console.log(0);
+    console.log(url);
 
     fetch(url + "register", {
         method : "POST",
         body: JSON.stringify({ nick: username, pass: password} )
     })
-    .then(function (resp) { return resp.text();} )
+    .then(function (resp) { 
+        console.log(1);
+        console.log(resp);
+        return resp.text();
+    } )
     .then(function (fresp){
-        //console.log(fr);
+        console.log(2);
+        //console.log(fresp);
         if(fresp!="{}"){
-        	alert = fresp.replace('"error":','');
-        	alert = alert.replace('{',''); alert = alert.replace('}','');
-        	alert = alert.replace('"',''); alert = alert.replace('"','');
-        	document.getElementById('alerta').innerHTML=alert;
+            console.log(22);
+            console.log(fresp);
+        	alerta = fresp.replace('"error":','');
+        	alerta = alerta.replace('{',''); alerta = alerta.replace('}','');
+        	alerta = alerta.replace('"',''); alerta = alerta.replace('"','');
+        	document.getElementById('alerta').innerHTML=alerta;
             //window.alert(fresp);
         }
         else{
+            console.log(3);
         	document.getElementById('pag_inicial').style.display = 'none';  
 			document.getElementById('after-login').style.display = 'block';
 			document.getElementById('startgame').style.display = 'block';
@@ -49,7 +61,13 @@ function register(username,password){
 			document.getElementById('cor_peca').style.display = 'none';
 			pontuacoes(); 
         }
-    });
+    })
+    .catch(function(err) {
+        console.log('Fetch Error :-S', err);
+      });
+
+
+    console.log(9);
 } 
 
 function join(user,password){
@@ -71,7 +89,7 @@ function join(user,password){
 		console.log(jogo,color);
 	});
 
-    setTimeout(espera,500);
+    //setTimeout(espera,500);
     //update();
 }
 
@@ -80,7 +98,6 @@ function espera()
     update();
 }
 
-//nao funciona
 function leave(user,password){
 
 console.log("logout:");
@@ -105,8 +122,8 @@ console.log({ nick: user, pass: password, game: jogo});
         	console.log(jogo);
         }
     });
-    var eventSource = new EventSource(url + "update?nick=" + user + "&game=" + jogo );
-    eventSource.close();
+   // var eventSource = new EventSource(url + "update?nick=" + user + "&game=" + jogo );
+   // eventSource.close();
 }
 
 function notify(user,password,linha,coluna){
@@ -211,17 +228,7 @@ function ranking(){
         return r.json();
     })
     .then(function (fr){
-        printRanking(fr.ranking);
-        /*
-        document.getElementById('regras').style.display = 'none';
-		document.getElementById('startgame').style.display = 'none';
-		document.getElementById('cor_peca').style.display = 'none';
-		document.getElementById('area_de_jogo').style.display = 'none';
-		document.getElementById('tabuleiro').style.display = 'none';
-		document.getElementById('pontuacao').style.display = 'none';
-		document.getElementById('classificacoes').style.display = 'block';
-		document.getElementById('info').style.display = "block";
-		document.getElementById('fim-jogo').style.display = "none";*/
+        printRanking(fr);
     });
 
 }
